@@ -59,13 +59,13 @@ const products = [
     screenshot: '/screens/licencia-nautica.png',
   },
   {
-    name: 'liquidaJusto',
+    name: 'Tu Liquidación al Día',
     tagline: 'Calculá tu indemnización en minutos.',
     description:
       'Calculadora gratuita actualizada con la Ley 27.802 (Reforma Laboral 2026). Sabé exactamente cuánto te corresponde.',
     features: ['Cálculo gratuito', '7 rubros indemnizatorios', 'Carta documento con IA', 'Ley 20.744 & 27.802'],
-    url: '#',
-    status: 'coming' as const,
+    url: 'https://liquidacion-al-dia.grindfactory.app',
+    status: 'live' as const,
     device: 'desktop' as const,
     bg: 'bg-[#1a0f0a]',
     accent: '#f59e0b',
@@ -73,13 +73,13 @@ const products = [
     screenshot: '/screens/liquidacion-al-dia.png',
   },
   {
-    name: 'regateaTuMulta',
+    name: 'Regatea Tu Multa',
     tagline: 'Generá tu escrito de descargo en segundos.',
     description:
       'Subí la foto de tu multa de tránsito. La IA analiza tu caso, detecta argumentos legales y genera el escrito de descargo en 30 segundos.',
     features: ['Análisis con IA', 'Basado en Ley 24.449', 'Descargo en PDF', 'Análisis 100% gratis'],
-    url: '#',
-    status: 'coming' as const,
+    url: 'https://regatea-tu-multa.grindfactory.app',
+    status: 'live' as const,
     device: 'desktop' as const,
     bg: 'bg-[#150a1f]',
     accent: '#8b5cf6',
