@@ -1,13 +1,199 @@
 <!doctype html>
-<html lang="en">
+<html lang="es-AR">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>grindfactory</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+    <!-- Primary meta tags -->
+    <title>Grind Factory — Apps propias. Nichos raros.</title>
+    <meta name="description" content="Una fábrica de apps independientes. Cada una resuelve un problema puntual en un mercado distinto — cannabis, salud, trámites, derecho laboral y más. Desde Buenos Aires." />
+    <meta name="keywords" content="grind factory, grindfactory, apps argentina, indie apps, software buenos aires, apps independientes, saas argentina, grovly, nowly, licencia argentina, liquidacion laboral, regatea tu multa" />
+    <meta name="author" content="Grind Factory" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="googlebot" content="index, follow" />
+    <link rel="canonical" href="https://grindfactory.app/" />
+
+    <!-- Theme / platform -->
+    <meta name="theme-color" content="#06060a" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#06060a" media="(prefers-color-scheme: light)" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Grind Factory" />
+    <meta name="format-detection" content="telephone=no" />
+
+    <!-- Icons / manifest -->
+    <link rel="icon" type="image/webp" href="/favicon.webp" />
+    <link rel="apple-touch-icon" href="/favicon.webp" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Grind Factory" />
+    <meta property="og:url" content="https://grindfactory.app/" />
+    <meta property="og:title" content="Grind Factory — Apps propias. Nichos raros." />
+    <meta property="og:description" content="Una fábrica de apps independientes. Cada una resuelve un problema puntual en un mercado distinto. Desde Buenos Aires." />
+    <meta property="og:image" content="https://grindfactory.app/og-image.png" />
+    <meta property="og:image:secure_url" content="https://grindfactory.app/og-image.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Grind Factory — Apps propias. Nichos raros." />
+    <meta property="og:locale" content="es_AR" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Grind Factory — Apps propias. Nichos raros." />
+    <meta name="twitter:description" content="Una fábrica de apps independientes. Cada una resuelve un problema puntual en un mercado distinto." />
+    <meta name="twitter:image" content="https://grindfactory.app/og-image.png" />
+    <meta name="twitter:image:alt" content="Grind Factory — Apps propias. Nichos raros." />
+
+    <!-- Performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" as="image" href="/logo.webp" fetchpriority="high" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+    <!-- Structured data: Organization -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Grind Factory",
+      "url": "https://grindfactory.app/",
+      "logo": "https://grindfactory.app/favicon.webp",
+      "image": "https://grindfactory.app/og-image.png",
+      "description": "Una fábrica de apps independientes. Cada una resuelve un problema puntual en un mercado distinto.",
+      "foundingLocation": {
+        "@type": "Place",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Buenos Aires",
+          "addressCountry": "AR"
+        }
+      },
+      "email": "hola@grindfactory.app",
+      "slogan": "Apps propias. Nichos raros."
+    }
+    </script>
+
+    <!-- Structured data: WebSite (for Sitelinks Search Box, if later) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Grind Factory",
+      "url": "https://grindfactory.app/",
+      "inLanguage": "es-AR",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Grind Factory",
+        "url": "https://grindfactory.app/"
+      }
+    }
+    </script>
+
+    <!-- Structured data: ItemList of apps -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "name": "Apps de Grind Factory",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "item": {
+            "@type": "SoftwareApplication",
+            "name": "Grovly",
+            "description": "El sistema operativo de tu club cannábico. Socios, inventario, dispensario, turnos, catálogo online, REPROCANN y reportes.",
+            "url": "https://grovly.grindfactory.app/",
+            "applicationCategory": "BusinessApplication",
+            "operatingSystem": "Web",
+            "offers": { "@type": "Offer", "priceCurrency": "ARS" }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "item": {
+            "@type": "SoftwareApplication",
+            "name": "Nowly",
+            "description": "Agenda, pacientes, huecos libres y recordatorios por WhatsApp para consultorios.",
+            "url": "https://nowly.grindfactory.app/",
+            "applicationCategory": "HealthApplication",
+            "operatingSystem": "Web",
+            "offers": { "@type": "Offer", "priceCurrency": "ARS" }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "item": {
+            "@type": "MobileApplication",
+            "name": "Licencia Argentina",
+            "description": "Simulacros, señales viales y 517 preguntas actualizadas para aprobar el examen de conducir.",
+            "applicationCategory": "EducationalApplication",
+            "operatingSystem": "iOS, Android"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "item": {
+            "@type": "MobileApplication",
+            "name": "Licencia Náutica",
+            "description": "Preparación completa para el examen de timonel y patrones. Teoría, reglamentación y señales náuticas.",
+            "applicationCategory": "EducationalApplication",
+            "operatingSystem": "iOS, Android"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
+          "item": {
+            "@type": "WebApplication",
+            "name": "Tu Liquidación al Día",
+            "description": "Calculadora gratuita de indemnización laboral actualizada con la Ley 27.802 (Reforma Laboral 2026).",
+            "url": "https://liquidacion-al-dia.grindfactory.app/",
+            "applicationCategory": "FinanceApplication",
+            "operatingSystem": "Web"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 6,
+          "item": {
+            "@type": "WebApplication",
+            "name": "Regatea Tu Multa",
+            "description": "Generá tu escrito de descargo de multa de tránsito en 30 segundos con IA. Basado en la Ley 24.449.",
+            "url": "https://regatea-tu-multa.grindfactory.app/",
+            "applicationCategory": "UtilitiesApplication",
+            "operatingSystem": "Web"
+          }
+        }
+      ]
+    }
+    </script>
   </head>
   <body>
     <div id="root"></div>
+    <noscript>
+      <div style="padding:2rem;font-family:sans-serif;color:#fff;background:#06060a;min-height:100vh;">
+        <h1>Grind Factory — Apps propias. Nichos raros.</h1>
+        <p>Una fábrica de apps independientes. Cada una resuelve un problema puntual en un mercado distinto.</p>
+        <h2>Apps</h2>
+        <ul>
+          <li><a href="https://grovly.grindfactory.app/" style="color:#10b981;">Grovly</a> — El sistema operativo de tu club cannábico.</li>
+          <li><a href="https://nowly.grindfactory.app/" style="color:#14b8a6;">Nowly</a> — Tu agenda te dice qué paciente viene ahora.</li>
+          <li>Licencia Argentina — Aprobá el examen de conducir a la primera.</li>
+          <li>Licencia Náutica — Navegá con confianza desde el día uno.</li>
+          <li><a href="https://liquidacion-al-dia.grindfactory.app/" style="color:#f59e0b;">Tu Liquidación al Día</a> — Calculá tu indemnización en minutos.</li>
+          <li><a href="https://regatea-tu-multa.grindfactory.app/" style="color:#8b5cf6;">Regatea Tu Multa</a> — Generá tu escrito de descargo en segundos.</li>
+        </ul>
+        <p>Contacto: <a href="mailto:hola@grindfactory.app" style="color:#fff;">hola@grindfactory.app</a></p>
+      </div>
+    </noscript>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

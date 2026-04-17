@@ -1,7 +1,26 @@
 import { useEffect, useRef, useState } from 'react';
 import './index.css';
 
-const products = [
+/* ==================================================================
+   Data
+   ================================================================== */
+
+type Product = {
+  name: string;
+  tagline: string;
+  description: string;
+  features: string[];
+  url: string;
+  status: 'live' | 'coming';
+  device: 'desktop' | 'phone';
+  accent: string;
+  glow: string;
+  tint: string;
+  screenshot: string;
+  category: string;
+};
+
+const products: Product[] = [
   {
     name: 'Grovly',
     tagline: 'El sistema operativo de tu club cannábico.',
@@ -9,12 +28,13 @@ const products = [
       'Socios, inventario, dispensario, turnos, catálogo online, REPROCANN y reportes. Todo en un solo lugar.',
     features: ['Gestión de socios', 'Inventario & dispensario', 'Catálogo online', 'Reportes & REPROCANN'],
     url: 'https://grovly.grindfactory.app',
-    status: 'live' as const,
-    device: 'desktop' as const,
-    bg: 'bg-[#0a1f16]',
+    status: 'live',
+    device: 'desktop',
     accent: '#10b981',
-    accentName: 'emerald',
+    glow: 'rgba(16, 185, 129, 0.35)',
+    tint: 'rgba(16, 185, 129, 0.08)',
     screenshot: '/screens/grovly.jpg',
+    category: 'SaaS · B2B',
   },
   {
     name: 'Nowly',
@@ -23,12 +43,13 @@ const products = [
       'Turnos, pacientes, huecos libres y recordatorios por WhatsApp. Sin grillas, sin scroll infinito.',
     features: ['Agenda inteligente', 'Gestión de pacientes', 'Huecos libres', 'Recordatorios WhatsApp'],
     url: 'https://nowly.grindfactory.app',
-    status: 'live' as const,
-    device: 'desktop' as const,
-    bg: 'bg-[#0a1a1f]',
+    status: 'live',
+    device: 'desktop',
     accent: '#14b8a6',
-    accentName: 'teal',
+    glow: 'rgba(20, 184, 166, 0.35)',
+    tint: 'rgba(20, 184, 166, 0.08)',
     screenshot: '/screens/nowly.jpg',
+    category: 'SaaS · Salud',
   },
   {
     name: 'Licencia Argentina',
@@ -37,12 +58,13 @@ const products = [
       'Simulacros reales, señales viales y práctica ilimitada. 517 preguntas actualizadas.',
     features: ['517 preguntas', 'Simulacros reales', 'Señales viales', 'Práctica ilimitada'],
     url: '#',
-    status: 'live' as const,
-    device: 'phone' as const,
-    bg: 'bg-[#0a0f1f]',
+    status: 'live',
+    device: 'phone',
     accent: '#3b82f6',
-    accentName: 'blue',
+    glow: 'rgba(59, 130, 246, 0.35)',
+    tint: 'rgba(59, 130, 246, 0.08)',
     screenshot: '/screens/licencia-ar.png',
+    category: 'Mobile · Education',
   },
   {
     name: 'Licencia Náutica',
@@ -51,12 +73,13 @@ const products = [
       'Preparación completa para el examen de timonel y patrones. Teoría, reglamentación y señales.',
     features: ['Examen de timonel', 'Teoría completa', 'Reglamentación', 'Señales náuticas'],
     url: '#',
-    status: 'coming' as const,
-    device: 'phone' as const,
-    bg: 'bg-[#0a1320]',
+    status: 'coming',
+    device: 'phone',
     accent: '#0ea5e9',
-    accentName: 'sky',
+    glow: 'rgba(14, 165, 233, 0.35)',
+    tint: 'rgba(14, 165, 233, 0.08)',
     screenshot: '/screens/licencia-nautica.png',
+    category: 'Mobile · Education',
   },
   {
     name: 'Tu Liquidación al Día',
@@ -65,33 +88,39 @@ const products = [
       'Calculadora gratuita actualizada con la Ley 27.802 (Reforma Laboral 2026). Sabé exactamente cuánto te corresponde.',
     features: ['Cálculo gratuito', '7 rubros indemnizatorios', 'Carta documento con IA', 'Ley 20.744 & 27.802'],
     url: 'https://liquidacion-al-dia.grindfactory.app',
-    status: 'live' as const,
-    device: 'desktop' as const,
-    bg: 'bg-[#1a0f0a]',
+    status: 'live',
+    device: 'desktop',
     accent: '#f59e0b',
-    accentName: 'amber',
+    glow: 'rgba(245, 158, 11, 0.35)',
+    tint: 'rgba(245, 158, 11, 0.08)',
     screenshot: '/screens/liquidacion-al-dia.png',
+    category: 'Web · Legal',
   },
   {
     name: 'Regatea Tu Multa',
     tagline: 'Generá tu escrito de descargo en segundos.',
     description:
-      'Subí la foto de tu multa de tránsito. La IA analiza tu caso, detecta argumentos legales y genera el escrito de descargo en 30 segundos.',
+      'Subí la foto de tu multa. La IA analiza tu caso, detecta argumentos legales y genera el escrito de descargo en 30 segundos.',
     features: ['Análisis con IA', 'Basado en Ley 24.449', 'Descargo en PDF', 'Análisis 100% gratis'],
     url: 'https://regatea-tu-multa.grindfactory.app',
-    status: 'live' as const,
-    device: 'desktop' as const,
-    bg: 'bg-[#150a1f]',
+    status: 'live',
+    device: 'desktop',
     accent: '#8b5cf6',
-    accentName: 'violet',
+    glow: 'rgba(139, 92, 246, 0.35)',
+    tint: 'rgba(139, 92, 246, 0.08)',
     screenshot: '/screens/pelea-tu-multa.png',
+    category: 'Web · AI · Legal',
   },
 ];
+
+/* ==================================================================
+   App
+   ================================================================== */
 
 function App() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
-  const totalSections = products.length + 1; // hero + products
+  const totalSections = 1 + products.length + 1; // hero + products + cta
 
   useEffect(() => {
     const container = containerRef.current;
@@ -114,259 +143,449 @@ function App() {
     container.scrollTo({ top: index * container.clientHeight, behavior: 'smooth' });
   };
 
+  const navLabel = (i: number) => {
+    if (i === 0) return 'Inicio';
+    if (i <= products.length) return products[i - 1].name;
+    return 'Contacto';
+  };
+
   return (
-    <div className="h-dvh w-screen overflow-hidden relative">
-      {/* Side nav dots — hidden on mobile */}
-      <nav className="fixed right-6 top-1/2 -translate-y-1/2 z-50 flex-col gap-3 hidden md:flex">
+    <div className="h-dvh w-screen overflow-hidden relative bg-[#06060a]">
+      {/* ========================
+          Top nav (fixed, glass)
+          ======================== */}
+      <header className="fixed top-0 left-0 right-0 z-50 flex justify-center pt-3 md:pt-5 px-3 md:px-6 pointer-events-none">
+        <nav className="glass rounded-full pl-2 pr-2 py-1.5 md:pl-3 md:pr-3 md:py-2 flex items-center gap-1 md:gap-2 pointer-events-auto shadow-2xl shadow-black/40">
+          <button
+            onClick={() => scrollTo(0)}
+            className="flex items-center gap-2 pl-1 pr-3 md:pr-4 py-1 hover:opacity-80 transition"
+            aria-label="Inicio"
+          >
+            <img src="/favicon.webp" alt="" width={26} height={26} className="rounded-md block" />
+            <span className="font-display font-bold text-sm md:text-[15px] tracking-tight">
+              Grind Factory
+            </span>
+          </button>
+          <button
+            onClick={() => scrollTo(1)}
+            className="hidden sm:inline-flex items-center px-3 md:px-4 py-1.5 rounded-full text-xs md:text-[13px] text-white/60 hover:text-white hover:bg-white/5 transition"
+          >
+            Apps
+          </button>
+          <button
+            onClick={() => scrollTo(totalSections - 1)}
+            className="inline-flex items-center gap-1.5 px-3 md:px-4 py-1.5 rounded-full text-xs md:text-[13px] font-medium bg-white text-black hover:bg-white/90 transition"
+          >
+            Contacto
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M7 17L17 7M17 7H8M17 7V16" />
+            </svg>
+          </button>
+        </nav>
+      </header>
+
+      {/* ========================
+          Side nav dots (desktop)
+          ======================== */}
+      <nav className="fixed right-5 top-1/2 -translate-y-1/2 z-40 flex-col gap-3 hidden lg:flex">
         {Array.from({ length: totalSections }).map((_, i) => (
           <button
             key={i}
             onClick={() => scrollTo(i)}
             className="group relative flex items-center justify-end"
-            aria-label={i === 0 ? 'Inicio' : products[i - 1].name}
+            aria-label={navLabel(i)}
           >
-            <span className="absolute right-6 px-2 py-1 rounded bg-white/10 text-white text-xs opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap backdrop-blur-sm">
-              {i === 0 ? 'Inicio' : products[i - 1].name}
+            <span className="absolute right-6 px-2.5 py-1 rounded-md glass text-white text-[11px] font-medium opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+              {navLabel(i)}
             </span>
             <span
-              className="block rounded-full transition-all duration-300"
+              className="block rounded-full transition-all duration-500"
               style={{
-                width: activeIndex === i ? 12 : 8,
-                height: activeIndex === i ? 12 : 8,
-                backgroundColor: activeIndex === i
-                  ? (i === 0 ? '#14b8a6' : products[i - 1].accent)
-                  : 'rgba(255,255,255,0.25)',
+                width: activeIndex === i ? 10 : 6,
+                height: activeIndex === i ? 10 : 6,
+                backgroundColor:
+                  activeIndex === i
+                    ? i === 0 || i > products.length
+                      ? '#ffffff'
+                      : products[i - 1].accent
+                    : 'rgba(255,255,255,0.2)',
+                boxShadow:
+                  activeIndex === i && i > 0 && i <= products.length
+                    ? `0 0 12px ${products[i - 1].accent}`
+                    : undefined,
               }}
             />
           </button>
         ))}
       </nav>
 
-      {/* Snap scroll container */}
-      <div
-        ref={containerRef}
-        className="h-full w-full overflow-y-auto snap-container"
-      >
-        {/* Hero section */}
-        <section className="h-dvh w-full snap-section flex flex-col items-center justify-center relative bg-zinc-950">
-          {/* Background grid */}
+      {/* ========================
+          Snap container
+          ======================== */}
+      <main ref={containerRef} className="h-full w-full overflow-y-auto snap-container" role="main">
+
+        {/* ================================================================
+            SECTION 1 — HERO
+            ================================================================ */}
+        <section
+          id="hero"
+          aria-labelledby="gf-h1"
+          className="h-dvh w-full snap-section relative overflow-hidden flex flex-col items-center justify-center"
+        >
+          {/* aurora + noise + grid */}
+          <div className="aurora" aria-hidden="true" />
+          <div className="absolute inset-0 bg-grid opacity-50" aria-hidden="true" />
+          <div className="noise" aria-hidden="true" />
+          {/* vignette */}
           <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-0 opacity-[0.03]"
+            className="absolute inset-0 pointer-events-none"
             style={{
-              backgroundImage:
-                'linear-gradient(to right, white 1px, transparent 1px), linear-gradient(to bottom, white 1px, transparent 1px)',
-              backgroundSize: '48px 48px',
+              background:
+                'radial-gradient(ellipse 80% 50% at 50% 120%, rgba(0,0,0,0.8), transparent 60%), radial-gradient(ellipse 60% 40% at 50% -20%, rgba(0,0,0,0.6), transparent 60%)',
             }}
-          />
-          <div
             aria-hidden="true"
-            className="pointer-events-none absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] rounded-full blur-3xl opacity-15"
-            style={{ background: 'radial-gradient(circle, rgb(20, 184, 166) 0%, transparent 60%)' }}
           />
 
-          <div className="relative z-10 text-center px-6">
-            <div className="inline-flex items-center gap-3 mb-4 md:mb-6">
-              <div className="h-10 w-10 md:h-14 md:w-14 rounded-xl bg-gradient-to-br from-emerald-400 to-teal-600 flex items-center justify-center shadow-lg shadow-emerald-500/20">
-                <svg className="h-5 w-5 md:h-7 md:w-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
-              </div>
-              <h1 className="text-3xl md:text-6xl font-bold tracking-tight">
-                Grind Factory
-              </h1>
+          <div className="relative z-10 text-center px-5 w-full max-w-5xl mx-auto">
+            {/* Wordmark — el único contenido del hero */}
+            <div className="flex items-center justify-center reveal">
+              <img
+                src="/logo.webp"
+                alt="Grind Factory"
+                className="h-14 sm:h-20 md:h-28 lg:h-36 w-auto select-none"
+                draggable={false}
+              />
             </div>
-            <p className="text-white/50 text-base md:text-xl max-w-lg mx-auto mb-10 md:mb-12">
-              Software que mueve industrias.<br />
-              Productos propios para mercados que necesitan soluciones de verdad.
-            </p>
+            {/* h1 semántico, oculto visualmente — queda visible para crawlers y screen readers */}
+            <h1 id="gf-h1" className="sr-only">
+              Grind Factory — Apps propias. Nichos raros. Una fábrica de apps independientes desde Buenos Aires.
+            </h1>
+          </div>
 
-            {/* Scroll hint */}
-            <button
-              onClick={() => scrollTo(1)}
-              className="inline-flex flex-col items-center gap-2 text-white/30 hover:text-white/60 transition-colors"
+          {/* Scroll hint */}
+          <button
+            onClick={() => scrollTo(1)}
+            className="absolute bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 text-white/40 hover:text-white/80 transition-colors reveal reveal-delay-4"
+            aria-label="Scroll"
+          >
+            <span className="text-[10px] uppercase tracking-[0.25em] font-medium">Scroll</span>
+            <svg className="h-4 w-4 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
+          </button>
+        </section>
+
+        {/* ================================================================
+            SECTIONS 2..N — PRODUCTS
+            ================================================================ */}
+        {products.map((p, i) => (
+          <ProductSection
+            key={p.name}
+            product={p}
+            index={i}
+            total={products.length}
+            onNext={() => scrollTo(i + 2)}
+          />
+        ))}
+
+        {/* ================================================================
+            CTA + FOOTER
+            ================================================================ */}
+        <section
+          id="contacto"
+          aria-labelledby="gf-contacto"
+          className="h-dvh w-full snap-section relative overflow-hidden flex flex-col"
+        >
+          <div className="aurora" aria-hidden="true" />
+          <div className="absolute inset-0 bg-grid opacity-40" aria-hidden="true" />
+          <div className="noise" aria-hidden="true" />
+
+          <div className="relative z-10 flex-1 flex items-center justify-center px-5">
+            <div className="flex flex-col items-center">
+              <h2 id="gf-contacto" className="sr-only">Contacto</h2>
+              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass mb-6 md:mb-8 text-[10px] md:text-xs font-mono uppercase tracking-[0.2em] text-white/60">
+                Contacto
+              </span>
+              <a
+                href="mailto:hola@grindfactory.app"
+                className="btn-glow inline-flex items-center gap-2 px-7 py-4 rounded-full bg-white text-black font-semibold text-base md:text-lg shadow-xl"
+              >
+                hola@grindfactory.app
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M7 17L17 7M17 7H8M17 7V16" />
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          {/* Footer */}
+          <footer className="relative z-10 border-t border-white/5 bg-black/30 backdrop-blur-sm px-5 md:px-12 py-6 md:py-8">
+            <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+              <div className="flex items-center gap-2.5">
+                <img src="/favicon.webp" alt="" width={26} height={26} className="rounded-md block" />
+                <span className="font-display font-bold text-sm tracking-tight">Grind Factory</span>
+              </div>
+              <div className="flex items-center gap-4 md:gap-6 text-xs text-white/40">
+                <span>© {new Date().getFullYear()} Grind Factory</span>
+                <span className="hidden md:inline">·</span>
+                <a
+                  href="mailto:hola@grindfactory.app"
+                  className="hover:text-white/80 transition"
+                >
+                  hola@grindfactory.app
+                </a>
+              </div>
+            </div>
+          </footer>
+        </section>
+      </main>
+    </div>
+  );
+}
+
+/* ==================================================================
+   <ProductSection />
+   ================================================================== */
+
+function ProductSection({
+  product: p,
+  index,
+  total,
+  onNext,
+}: {
+  product: Product;
+  index: number;
+  total: number;
+  onNext: () => void;
+}) {
+  const num = String(index + 1).padStart(2, '0');
+  const tot = String(total).padStart(2, '0');
+  const slug = p.name.toLowerCase().replace(/\s+/g, '-').normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  const headingId = `gf-app-${slug}`;
+
+  return (
+    <section
+      id={slug}
+      aria-labelledby={headingId}
+      className="h-dvh w-full snap-section relative overflow-hidden"
+    >
+      {/* Accent background */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: `radial-gradient(ellipse 70% 50% at 70% 20%, ${p.glow}, transparent 60%), radial-gradient(ellipse 60% 45% at 20% 80%, ${p.glow.replace('0.35', '0.25')}, transparent 60%), ${p.tint}`,
+        }}
+        aria-hidden="true"
+      />
+      <div className="absolute inset-0 bg-grid opacity-30" aria-hidden="true" />
+      <div className="noise" aria-hidden="true" />
+
+      {/* Section number — huge, ghosted */}
+      <div
+        aria-hidden="true"
+        className="absolute top-[8vh] right-[4vw] md:top-[10vh] md:right-[4vw] font-display font-bold text-[20vw] md:text-[14vw] leading-none select-none pointer-events-none"
+        style={{
+          color: 'transparent',
+          WebkitTextStroke: `1px ${p.accent}25`,
+          opacity: 0.6,
+        }}
+      >
+        {num}
+      </div>
+
+      {/* Top meta bar */}
+      <div className="absolute top-[10vh] md:top-[11vh] left-5 md:left-12 flex items-center gap-3 z-10">
+        <span className="font-mono text-[10px] md:text-xs tracking-[0.25em] text-white/40 uppercase">
+          {num} / {tot}
+        </span>
+        <span className="h-px w-10 md:w-16 bg-white/15" />
+        <span className="font-mono text-[10px] md:text-xs tracking-[0.2em] uppercase" style={{ color: p.accent }}>
+          {p.category}
+        </span>
+      </div>
+
+      {/* Main content */}
+      <div className="relative z-10 h-full flex flex-col xl:flex-row items-center justify-center px-5 md:px-12 lg:px-20 pt-24 md:pt-28 pb-20 md:pb-16 gap-6 md:gap-12">
+
+        {/* Info */}
+        <div className="flex-1 max-w-xl flex flex-col justify-center order-2 xl:order-1 w-full">
+          {/* Status */}
+          <div className="flex items-center gap-2 mb-3 md:mb-5">
+            <span
+              className="inline-flex items-center gap-1.5 text-[10px] md:text-[11px] uppercase tracking-[0.2em] font-semibold px-2.5 py-1 rounded-full"
+              style={{
+                backgroundColor: p.status === 'live' ? `${p.accent}1a` : 'rgba(255,255,255,0.06)',
+                color: p.status === 'live' ? p.accent : 'rgba(255,255,255,0.45)',
+                border: `1px solid ${p.status === 'live' ? `${p.accent}40` : 'rgba(255,255,255,0.1)'}`,
+              }}
             >
-              <span className="text-sm">Conocé nuestros productos</span>
-              <svg className="h-5 w-5 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+              <span
+                className={`h-1.5 w-1.5 rounded-full ${p.status === 'live' ? 'pulse-dot' : ''}`}
+                style={{ backgroundColor: p.status === 'live' ? p.accent : 'rgba(255,255,255,0.3)', color: p.accent }}
+              />
+              {p.status === 'live' ? 'Live' : 'Próximamente'}
+            </span>
+          </div>
+
+          {/* Name */}
+          <h2
+            id={headingId}
+            className="font-display font-bold text-4xl md:text-6xl lg:text-7xl leading-[0.95] tracking-[-0.035em] mb-3 md:mb-5 text-balance"
+          >
+            {p.name}
+          </h2>
+
+          {/* Tagline */}
+          <p
+            className="font-display font-medium text-lg md:text-2xl leading-[1.25] mb-3 md:mb-4 text-balance tracking-[-0.01em]"
+            style={{ color: p.accent }}
+          >
+            {p.tagline}
+          </p>
+
+          {/* Description */}
+          <p className="text-white/55 text-sm md:text-base mb-5 md:mb-7 leading-relaxed max-w-md hidden sm:block">
+            {p.description}
+          </p>
+
+          {/* Features */}
+          <ul className="grid grid-cols-2 gap-2 md:gap-2.5 mb-5 md:mb-8 max-w-md">
+            {p.features.map((f) => (
+              <li
+                key={f}
+                className="flex items-center gap-2 text-xs md:text-sm text-white/65"
+              >
+                <span
+                  className="h-1 w-1 rounded-full flex-shrink-0"
+                  style={{ backgroundColor: p.accent, boxShadow: `0 0 8px ${p.accent}` }}
+                />
+                <span>{f}</span>
+              </li>
+            ))}
+          </ul>
+
+          {/* CTA */}
+          <div className="flex items-center gap-3">
+            {p.url !== '#' ? (
+              <a
+                href={p.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-glow inline-flex items-center gap-2 px-5 md:px-6 py-2.5 md:py-3 rounded-full font-semibold text-sm transition"
+                style={{
+                  backgroundColor: p.accent,
+                  color: '#0a0a10',
+                }}
+              >
+                Visitar sitio
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M7 17L17 7M17 7H8M17 7V16" />
+                </svg>
+              </a>
+            ) : p.device === 'phone' ? (
+              <span
+                className="inline-flex items-center gap-2 px-5 md:px-6 py-2.5 md:py-3 rounded-full font-medium text-sm border"
+                style={{
+                  color: p.accent,
+                  backgroundColor: `${p.accent}12`,
+                  borderColor: `${p.accent}40`,
+                }}
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M17 19H7V5h10m0-2H7c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/>
+                </svg>
+                {p.status === 'live' ? 'Disponible en iOS & Android' : 'Próximamente en tiendas'}
+              </span>
+            ) : (
+              <span className="inline-flex items-center gap-2 px-5 md:px-6 py-2.5 md:py-3 rounded-full font-medium text-sm bg-white/5 text-white/50 border border-white/10">
+                <span className="h-1.5 w-1.5 rounded-full bg-white/30" />
+                En construcción
+              </span>
+            )}
+
+            <button
+              onClick={onNext}
+              className="inline-flex items-center gap-2 px-4 md:px-5 min-h-11 rounded-full text-white/60 hover:text-white text-xs md:text-sm font-medium transition hover:bg-white/5"
+            >
+              Siguiente
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 5v14M5 12l7 7 7-7" />
               </svg>
             </button>
           </div>
-        </section>
+        </div>
 
-        {/* Product sections */}
-        {products.map((p, i) => (
-          <section
-            key={p.name}
-            className={`h-dvh w-full snap-section relative overflow-hidden ${p.bg}`}
-          >
-            {/* Background glow */}
+        {/* Mockup */}
+        <div className="flex-shrink-0 flex items-center justify-center order-1 xl:order-2 float">
+          {p.device === 'phone' ? (
             <div
-              aria-hidden="true"
-              className="pointer-events-none absolute -top-32 -right-32 w-[400px] md:w-[600px] h-[400px] md:h-[600px] rounded-full blur-[120px] opacity-20"
-              style={{ backgroundColor: p.accent }}
-            />
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute -bottom-32 -left-32 w-[300px] md:w-[400px] h-[300px] md:h-[400px] rounded-full blur-[100px] opacity-10"
-              style={{ backgroundColor: p.accent }}
-            />
-
-            {/* Mobile: column layout, Desktop: row layout */}
-            <div className="relative z-10 h-full flex flex-col md:flex-row items-center justify-center px-5 md:px-16 lg:px-24 py-12 md:py-0 gap-6 md:gap-16">
-
-              {/* Info */}
-              <div className="flex-1 max-w-lg flex flex-col justify-center order-2 md:order-1">
-                <div>
-                  {/* Status */}
-                  <div className="flex items-center gap-3 mb-2 md:mb-4">
-                    <span
-                      className="text-[10px] md:text-[11px] uppercase tracking-[0.2em] font-semibold px-2.5 py-1 rounded-full"
-                      style={{
-                        backgroundColor: p.status === 'live' ? `${p.accent}20` : 'rgba(255,255,255,0.08)',
-                        color: p.status === 'live' ? p.accent : 'rgba(255,255,255,0.4)',
-                      }}
-                    >
-                      {p.status === 'live' ? '● Live' : '○ Próximamente'}
-                    </span>
-                  </div>
-
-                  {/* Name */}
-                  <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-2 md:mb-4">
-                    {p.name}
-                  </h2>
-
-                  {/* Tagline */}
-                  <p className="text-base md:text-xl font-medium mb-2 md:mb-3" style={{ color: p.accent }}>
-                    {p.tagline}
-                  </p>
-
-                  {/* Description — hidden on very small screens to save space */}
-                  <p className="text-white/50 text-sm md:text-base mb-4 md:mb-8 leading-relaxed hidden min-[400px]:block">
-                    {p.description}
-                  </p>
-
-                  {/* Features */}
-                  <ul className="grid grid-cols-2 gap-2 md:gap-3 mb-6 md:mb-10">
-                    {p.features.map((f) => (
-                      <li key={f} className="flex items-center gap-2 text-xs md:text-sm text-white/60">
-                        <span
-                          className="h-1.5 w-1.5 rounded-full flex-shrink-0"
-                          style={{ backgroundColor: p.accent }}
-                        />
-                        {f}
-                      </li>
-                    ))}
-                  </ul>
-
-                  {/* CTA */}
-                  {p.url !== '#' ? (
-                    <a
-                      href={p.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-5 md:px-6 py-2.5 md:py-3 rounded-xl font-semibold text-sm transition-all duration-300 hover:scale-105 hover:shadow-lg"
-                      style={{
-                        backgroundColor: p.accent,
-                        color: '#000',
-                        boxShadow: `0 0 30px ${p.accent}30`,
-                      }}
-                    >
-                      Visitar sitio
-                      <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                      </svg>
-                    </a>
-                  ) : (
-                    <span className="inline-flex items-center gap-2 px-5 md:px-6 py-2.5 md:py-3 rounded-xl font-semibold text-sm bg-white/5 text-white/40 border border-white/10">
-                      Próximamente
-                    </span>
-                  )}
-                </div>
-              </div>
-
-              {/* Screenshot */}
-              <div className="flex-shrink-0 flex items-center justify-center order-1 md:order-2">
-                {p.device === 'phone' ? (
-                  /* Phone mockup */
-                  <div
-                    className="relative rounded-[28px] md:rounded-[40px] border-[4px] md:border-[6px] border-white/15 bg-black/40 p-1.5 md:p-2 shadow-2xl"
-                    style={{ boxShadow: `0 25px 60px ${p.accent}20` }}
-                  >
-                    {/* Notch */}
-                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-20 md:w-28 h-4 md:h-6 bg-black rounded-b-xl md:rounded-b-2xl z-10" />
-                    <div className="rounded-[22px] md:rounded-[32px] overflow-hidden">
-                      <img
-                        src={p.screenshot}
-                        alt={`${p.name} screenshot`}
-                        className="h-[28vh] md:h-[60vh] w-auto object-contain"
-                        loading={i === 0 ? 'eager' : 'lazy'}
-                      />
-                    </div>
-                  </div>
-                ) : (
-                  /* Desktop/browser mockup */
-                  <div
-                    className="relative rounded-lg md:rounded-xl overflow-hidden shadow-2xl border border-white/10 w-full max-w-[280px] md:max-w-lg"
-                    style={{ boxShadow: `0 25px 60px ${p.accent}15` }}
-                  >
-                    {/* Browser bar */}
-                    <div className="bg-white/5 border-b border-white/10 px-3 md:px-4 py-1.5 md:py-2.5 flex items-center gap-2">
-                      <div className="flex gap-1 md:gap-1.5">
-                        <span className="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-white/15" />
-                        <span className="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-white/15" />
-                        <span className="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-white/15" />
-                      </div>
-                      <div className="flex-1 mx-2 md:mx-3 bg-white/5 rounded-md px-2 md:px-3 py-0.5 md:py-1 text-[8px] md:text-[10px] text-white/30 truncate">
-                        {p.url !== '#' ? p.url.replace('https://', '') : `${p.name.toLowerCase().replace(/\s/g, '')}.grindfactory.app`}
-                      </div>
-                    </div>
-                    <img
-                      src={p.screenshot}
-                      alt={`${p.name} screenshot`}
-                      className="w-full h-auto object-contain"
-                      loading={i === 0 ? 'eager' : 'lazy'}
-                    />
-                  </div>
-                )}
-              </div>
-            </div>
-
-            {/* Bottom — section indicator */}
-            <div className="absolute bottom-4 md:bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-2">
-              {products.map((_, j) => (
-                <span
-                  key={j}
-                  className="block rounded-full transition-all duration-300"
-                  style={{
-                    width: i === j ? 24 : 6,
-                    height: 6,
-                    backgroundColor: i === j ? p.accent : 'rgba(255,255,255,0.15)',
-                  }}
+              className="relative rounded-[32px] md:rounded-[44px] border-[4px] md:border-[6px] border-white/15 bg-black/50 p-1.5 md:p-2 mockup-shadow"
+              style={{ boxShadow: `0 30px 80px ${p.glow}` }}
+            >
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-20 md:w-28 h-4 md:h-6 bg-black rounded-b-xl md:rounded-b-2xl z-10" />
+              <div className="rounded-[26px] md:rounded-[36px] overflow-hidden">
+                <img
+                  src={p.screenshot}
+                  alt={`${p.name} screenshot`}
+                  className="h-[32vh] md:h-[62vh] w-auto object-contain block"
+                  loading={index === 0 ? 'eager' : 'lazy'}
                 />
-              ))}
-            </div>
-          </section>
-        ))}
-
-        {/* Footer section */}
-        <footer className="h-auto min-h-[160px] md:min-h-[200px] snap-section flex items-center justify-center bg-zinc-950 text-center py-10 md:py-12 px-6">
-          <div>
-            <div className="inline-flex items-center gap-2 mb-4">
-              <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-emerald-400 to-teal-600 flex items-center justify-center">
-                <svg className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
               </div>
-              <span className="text-lg font-bold">Grind Factory</span>
+              <div
+                className="absolute inset-0 rounded-[32px] md:rounded-[44px] pointer-events-none"
+                style={{ background: 'linear-gradient(145deg, rgba(255,255,255,0.12) 0%, transparent 30%)' }}
+              />
             </div>
-            <p className="text-white/30 text-sm">
-              © {new Date().getFullYear()} Grind Factory · Buenos Aires, Argentina
-            </p>
-          </div>
-        </footer>
+          ) : (
+            <div
+              className="relative rounded-xl md:rounded-2xl overflow-hidden border border-white/10 w-full max-w-[320px] sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl mockup-shadow"
+              style={{ boxShadow: `0 30px 80px ${p.glow}` }}
+            >
+              <div className="bg-white/5 backdrop-blur border-b border-white/10 px-3 md:px-4 py-2 md:py-2.5 flex items-center gap-2">
+                <div className="flex gap-1.5">
+                  <span className="w-2.5 h-2.5 rounded-full bg-white/15" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-white/15" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-white/15" />
+                </div>
+                <div className="flex-1 mx-2 md:mx-3 bg-white/5 rounded-md px-3 py-1 text-[10px] md:text-[11px] text-white/35 truncate font-mono">
+                  {p.url !== '#' ? p.url.replace('https://', '') : `${p.name.toLowerCase().replace(/\s/g, '')}.grindfactory.app`}
+                </div>
+                <div
+                  className="h-1.5 w-1.5 rounded-full"
+                  style={{ backgroundColor: p.accent, boxShadow: `0 0 10px ${p.accent}` }}
+                />
+              </div>
+              <img
+                src={p.screenshot}
+                alt={`${p.name} screenshot`}
+                className="w-full h-auto object-contain block bg-black"
+                loading={index === 0 ? 'eager' : 'lazy'}
+              />
+              <div
+                className="absolute inset-0 pointer-events-none"
+                style={{ background: 'linear-gradient(145deg, rgba(255,255,255,0.08) 0%, transparent 25%)' }}
+              />
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+
+      {/* Bottom progress */}
+      <div className="absolute bottom-5 md:bottom-7 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-10">
+        {Array.from({ length: total }).map((_, j) => (
+          <span
+            key={j}
+            className="block rounded-full transition-all duration-500"
+            style={{
+              width: index === j ? 28 : 5,
+              height: 4,
+              backgroundColor: index === j ? p.accent : 'rgba(255,255,255,0.15)',
+              boxShadow: index === j ? `0 0 12px ${p.accent}` : undefined,
+            }}
+          />
+        ))}
+      </div>
+    </section>
   );
 }
 

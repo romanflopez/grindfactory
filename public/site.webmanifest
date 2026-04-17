@@ -1,0 +1,21 @@
+{
+  "name": "Grind Factory",
+  "short_name": "Grind Factory",
+  "description": "Apps propias. Nichos raros. Una fábrica de apps independientes para mercados específicos.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#06060a",
+  "theme_color": "#06060a",
+  "lang": "es-AR",
+  "dir": "ltr",
+  "categories": ["business", "productivity", "utilities"],
+  "icons": [
+    {
+      "src": "/favicon.webp",
+      "sizes": "any",
+      "type": "image/webp",
+      "purpose": "any"
+    }
+  ]
+}
