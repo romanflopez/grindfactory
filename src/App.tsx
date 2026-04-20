@@ -246,28 +246,10 @@ function App() {
             aria-hidden="true"
           />
 
-          <div className="relative z-10 text-center px-5 w-full max-w-5xl mx-auto flex flex-col items-center gap-6 md:gap-8">
-            {/* Wordmark */}
-            <div className="flex items-center justify-center reveal">
-              <img
-                src="/logo.webp"
-                alt="Grind Factory"
-                className="h-14 sm:h-20 md:h-28 lg:h-36 w-auto select-none drop-shadow-[0_0_40px_rgba(16,185,129,0.35)]"
-                draggable={false}
-              />
-            </div>
-
-            {/* Scrambled tagline */}
+          <div className="relative z-10 text-center px-5 w-full max-w-5xl mx-auto">
             <ScrambledTitle
-              phrases={[
-                'APPS PROPIAS',
-                'NICHOS RAROS',
-                'BUILT TO SHIP',
-                'BUENOS AIRES',
-                'GRIND FACTORY',
-              ]}
-              className="text-white/85 text-sm sm:text-base md:text-xl font-semibold tracking-[0.3em] uppercase min-h-[1.5em]"
-              interval={2200}
+              phrases={['Hello, grindfactory.app']}
+              className="text-white text-3xl sm:text-4xl md:text-6xl font-bold tracking-wider"
             />
 
             {/* h1 semántico, oculto visualmente — queda visible para crawlers y screen readers */}
