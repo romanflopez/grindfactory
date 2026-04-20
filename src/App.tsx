@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { MatrixRain, ScrambledTitle } from './components/ui/modern-animated-hero-section';
 import './index.css';
 
 /* ==================================================================
@@ -230,32 +231,45 @@ function App() {
         <section
           id="hero"
           aria-labelledby="gf-h1"
-          className="h-dvh w-full snap-section relative overflow-hidden flex flex-col items-center justify-center"
+          className="h-dvh w-full snap-section relative overflow-hidden flex flex-col items-center justify-center bg-black"
         >
-          {/* aurora + noise + grid */}
-          <div className="aurora" aria-hidden="true" />
-          <div className="absolute inset-0 bg-grid opacity-50" aria-hidden="true" />
-          <div className="noise" aria-hidden="true" />
-          {/* vignette */}
+          {/* Matrix rain backdrop */}
+          <MatrixRain charCount={250} activeColor="#10b981" />
+
+          {/* vignette over rain */}
           <div
-            className="absolute inset-0 pointer-events-none"
+            className="absolute inset-0 pointer-events-none z-[1]"
             style={{
               background:
-                'radial-gradient(ellipse 80% 50% at 50% 120%, rgba(0,0,0,0.8), transparent 60%), radial-gradient(ellipse 60% 40% at 50% -20%, rgba(0,0,0,0.6), transparent 60%)',
+                'radial-gradient(ellipse 70% 50% at 50% 50%, transparent 0%, rgba(0,0,0,0.55) 70%, rgba(0,0,0,0.85) 100%)',
             }}
             aria-hidden="true"
           />
 
-          <div className="relative z-10 text-center px-5 w-full max-w-5xl mx-auto">
-            {/* Wordmark — el único contenido del hero */}
+          <div className="relative z-10 text-center px-5 w-full max-w-5xl mx-auto flex flex-col items-center gap-6 md:gap-8">
+            {/* Wordmark */}
             <div className="flex items-center justify-center reveal">
               <img
                 src="/logo.webp"
                 alt="Grind Factory"
-                className="h-14 sm:h-20 md:h-28 lg:h-36 w-auto select-none"
+                className="h-14 sm:h-20 md:h-28 lg:h-36 w-auto select-none drop-shadow-[0_0_40px_rgba(16,185,129,0.35)]"
                 draggable={false}
               />
             </div>
+
+            {/* Scrambled tagline */}
+            <ScrambledTitle
+              phrases={[
+                'APPS PROPIAS',
+                'NICHOS RAROS',
+                'BUILT TO SHIP',
+                'BUENOS AIRES',
+                'GRIND FACTORY',
+              ]}
+              className="text-white/85 text-sm sm:text-base md:text-xl font-semibold tracking-[0.3em] uppercase min-h-[1.5em]"
+              interval={2200}
+            />
+
             {/* h1 semántico, oculto visualmente — queda visible para crawlers y screen readers */}
             <h1 id="gf-h1" className="sr-only">
               Grind Factory — Apps propias. Nichos raros. Una fábrica de apps independientes desde Buenos Aires.

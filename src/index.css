@@ -47,6 +47,12 @@ body {
   color: #fff;
 }
 
+/* Scramble dud glyph for matrix hero */
+.dud {
+  color: #0f0;
+  opacity: 0.7;
+}
+
 /* ============================
    Snap scroll
    ============================ */
