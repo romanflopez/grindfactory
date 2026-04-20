@@ -251,7 +251,6 @@ function App() {
             product={p}
             index={i}
             total={products.length}
-            onNext={() => scrollTo(i + 2)}
           />
         ))}
 
@@ -318,12 +317,10 @@ function ProductSection({
   product: p,
   index,
   total,
-  onNext,
 }: {
   product: Product;
   index: number;
   total: number;
-  onNext: () => void;
 }) {
   const num = String(index + 1).padStart(2, '0');
   const tot = String(total).padStart(2, '0');
@@ -470,15 +467,6 @@ function ProductSection({
               </span>
             )}
 
-            <button
-              onClick={onNext}
-              className="inline-flex items-center gap-2 px-4 md:px-5 min-h-11 rounded-full text-white/60 hover:text-white text-xs md:text-sm font-medium transition hover:bg-white/5"
-            >
-              Siguiente
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M12 5v14M5 12l7 7 7-7" />
-              </svg>
-            </button>
           </div>
         </div>
 
@@ -537,21 +525,6 @@ function ProductSection({
         </div>
       </div>
 
-      {/* Bottom progress */}
-      <div className="absolute bottom-5 md:bottom-7 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-10">
-        {Array.from({ length: total }).map((_, j) => (
-          <span
-            key={j}
-            className="block rounded-full transition-all duration-500"
-            style={{
-              width: index === j ? 28 : 5,
-              height: 4,
-              backgroundColor: index === j ? p.accent : 'rgba(255,255,255,0.15)',
-              boxShadow: index === j ? `0 0 12px ${p.accent}` : undefined,
-            }}
-          />
-        ))}
-      </div>
     </section>
   );
 }
