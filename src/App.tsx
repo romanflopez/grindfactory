@@ -201,7 +201,7 @@ function App() {
           className="h-dvh w-full snap-section relative overflow-hidden flex flex-col items-center justify-center bg-black"
         >
           {/* Matrix rain backdrop */}
-          <MatrixRain charCount={250} activeColor="#10b981" />
+          <MatrixRain charCount={250} activeColor="#10b981" minSpeed={0.03} maxSpeed={0.12} />
 
           {/* vignette over rain */}
           <div

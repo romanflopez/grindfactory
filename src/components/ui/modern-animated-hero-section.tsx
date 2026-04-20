@@ -144,12 +144,16 @@ interface MatrixRainProps {
   charCount?: number;
   className?: string;
   activeColor?: string;
+  minSpeed?: number;
+  maxSpeed?: number;
 }
 
 export const MatrixRain: React.FC<MatrixRainProps> = ({
   charCount = 300,
   className = "",
   activeColor = "#00ff00",
+  minSpeed = 0.1,
+  maxSpeed = 0.4,
 }) => {
   const [characters, setCharacters] = useState<Character[]>([]);
   const [activeIndices, setActiveIndices] = useState<Set<number>>(new Set());
@@ -163,11 +167,11 @@ export const MatrixRain: React.FC<MatrixRainProps> = ({
         char: allChars[Math.floor(Math.random() * allChars.length)],
         x: Math.random() * 100,
         y: Math.random() * 100,
-        speed: 0.1 + Math.random() * 0.3,
+        speed: minSpeed + Math.random() * (maxSpeed - minSpeed),
       });
     }
     return newCharacters;
-  }, [charCount]);
+  }, [charCount, minSpeed, maxSpeed]);
 
   useEffect(() => {
     setCharacters(createCharacters());
