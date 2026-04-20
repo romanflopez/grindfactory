@@ -152,40 +152,7 @@ function App() {
 
   return (
     <div className="h-dvh w-screen overflow-hidden relative bg-[#06060a]">
-      {/* ========================
-          Top nav (fixed, glass)
-          ======================== */}
-      <header className="fixed top-0 left-0 right-0 z-50 flex justify-center pt-3 md:pt-5 px-3 md:px-6 pointer-events-none">
-        <nav className="glass rounded-full pl-2 pr-2 py-1.5 md:pl-3 md:pr-3 md:py-2 flex items-center gap-1 md:gap-2 pointer-events-auto shadow-2xl shadow-black/40">
-          <button
-            onClick={() => scrollTo(0)}
-            className="flex items-center gap-2 pl-1 pr-3 md:pr-4 py-1 hover:opacity-80 transition"
-            aria-label="Inicio"
-          >
-            <img src="/favicon.webp" alt="" width={26} height={26} className="rounded-md block" />
-            <span className="font-display font-bold text-sm md:text-[15px] tracking-tight">
-              Grind Factory
-            </span>
-          </button>
-          <button
-            onClick={() => scrollTo(1)}
-            className="hidden sm:inline-flex items-center px-3 md:px-4 py-1.5 rounded-full text-xs md:text-[13px] text-white/60 hover:text-white hover:bg-white/5 transition"
-          >
-            Apps
-          </button>
-          <button
-            onClick={() => scrollTo(totalSections - 1)}
-            className="inline-flex items-center gap-1.5 px-3 md:px-4 py-1.5 rounded-full text-xs md:text-[13px] font-medium bg-white text-black hover:bg-white/90 transition"
-          >
-            Contacto
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M7 17L17 7M17 7H8M17 7V16" />
-            </svg>
-          </button>
-        </nav>
-      </header>
-
-      {/* ========================
+{/* ========================
           Side nav dots (desktop)
           ======================== */}
       <nav className="fixed right-5 top-1/2 -translate-y-1/2 z-40 flex-col gap-3 hidden lg:flex">
@@ -246,10 +213,14 @@ function App() {
             aria-hidden="true"
           />
 
-          <div className="relative z-10 text-center px-5 w-full max-w-5xl mx-auto">
+          <div className="relative z-10 text-center px-5 w-full max-w-5xl mx-auto flex flex-col items-center gap-2 md:gap-4">
             <ScrambledTitle
-              phrases={['Hello, grindfactory.app']}
-              className="text-white text-3xl sm:text-4xl md:text-6xl font-bold tracking-wider"
+              phrases={['Hello,']}
+              className="text-white text-3xl sm:text-4xl md:text-6xl font-bold tracking-wider text-center"
+            />
+            <ScrambledTitle
+              phrases={['grindfactory.app']}
+              className="text-white text-3xl sm:text-4xl md:text-6xl font-bold tracking-wider text-center"
             />
 
             {/* h1 semántico, oculto visualmente — queda visible para crawlers y screen readers */}
