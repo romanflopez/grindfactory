@@ -21,8 +21,18 @@
   --aurora-5: #f59e0b; /* amber */
 
   --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --font-display: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+*:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.7);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
 }
 
 html {
@@ -171,6 +181,36 @@ body {
   filter: blur(100px);
 }
 
+/* Aurora mono — single-hue ambient, no rainbow */
+.aurora-mono {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.aurora-mono::before {
+  content: "";
+  position: absolute;
+  inset: -30%;
+  background:
+    radial-gradient(ellipse 55% 40% at 20% 30%, rgba(16, 185, 129, 0.28), transparent 65%),
+    radial-gradient(ellipse 50% 40% at 80% 70%, rgba(16, 185, 129, 0.18), transparent 65%);
+  filter: blur(90px);
+  animation: aurora-drift 28s ease-in-out infinite alternate;
+}
+
+.aurora-mono::after {
+  content: "";
+  position: absolute;
+  inset: -30%;
+  background:
+    radial-gradient(ellipse 40% 30% at 70% 20%, rgba(6, 182, 212, 0.14), transparent 60%);
+  filter: blur(100px);
+  animation: aurora-drift-2 32s ease-in-out infinite alternate;
+  mix-blend-mode: screen;
+}
+
 /* ============================
    Noise / grain
    ============================ */
@@ -229,29 +269,31 @@ body {
 .btn-glow {
   position: relative;
   isolation: isolate;
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s;
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s;
 }
 
 .btn-glow::before {
   content: "";
   position: absolute;
-  inset: -2px;
+  inset: -1px;
   border-radius: inherit;
-  background: linear-gradient(120deg, var(--aurora-1), var(--aurora-2), var(--aurora-3), var(--aurora-4));
-  background-size: 300% 300%;
+  background: currentColor;
   opacity: 0;
-  filter: blur(10px);
+  filter: blur(14px);
   z-index: -1;
-  transition: opacity 0.3s;
-  animation: aurora-text 4s linear infinite;
+  transition: opacity 0.25s;
 }
 
 .btn-glow:hover::before {
-  opacity: 0.65;
+  opacity: 0.35;
 }
 
 .btn-glow:hover {
   transform: translateY(-1px);
+}
+
+.btn-glow:active {
+  transform: translateY(0) scale(0.98);
 }
 
 /* ============================

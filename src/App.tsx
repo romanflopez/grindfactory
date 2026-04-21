@@ -213,20 +213,51 @@ function App() {
             aria-hidden="true"
           />
 
-          <div className="relative z-10 text-center px-5 w-full max-w-5xl mx-auto flex flex-col items-center gap-2 md:gap-4">
+          <div className="relative z-10 text-center px-5 w-full max-w-5xl mx-auto flex flex-col items-center gap-3 md:gap-5">
+            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass text-[10px] md:text-xs font-mono uppercase tracking-[0.25em] text-white/60">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 pulse-dot" style={{ color: '#10b981' }} />
+              Buenos Aires · AR
+            </span>
+
             <ScrambledTitle
               phrases={['Hello,']}
-              className="text-white text-3xl sm:text-4xl md:text-6xl font-bold tracking-wider text-center"
+              className="text-white/90 text-2xl sm:text-3xl md:text-4xl font-bold tracking-wider text-center"
             />
             <ScrambledTitle
               phrases={['grindfactory.app']}
               className="text-white text-3xl sm:text-4xl md:text-6xl font-bold tracking-wider text-center"
             />
 
-            {/* h1 semántico, oculto visualmente — queda visible para crawlers y screen readers */}
-            <h1 id="gf-h1" className="sr-only">
-              Grind Factory — Apps propias. Nichos raros. Una fábrica de apps independientes desde Buenos Aires.
+            <h1
+              id="gf-h1"
+              className="font-display font-bold text-balance text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-[0.95] tracking-[-0.035em] mt-2 md:mt-4 max-w-3xl"
+            >
+              Apps propias. <span className="text-white/50">Nichos raros.</span>
             </h1>
+
+            <p className="text-white/55 text-sm md:text-base max-w-md md:max-w-lg leading-relaxed text-balance">
+              Fábrica de software independiente. Seis apps, seis mercados, un solo fundador.
+            </p>
+
+            <div className="flex flex-wrap items-center justify-center gap-1.5 md:gap-2 mt-2 max-w-3xl">
+              {products.map((p, i) => (
+                <button
+                  key={p.name}
+                  onClick={() => scrollTo(i + 1)}
+                  className="group inline-flex items-center gap-1.5 px-2.5 md:px-3 py-1 md:py-1.5 rounded-full text-[10px] md:text-xs font-medium text-white/70 hover:text-white transition-colors backdrop-blur-md"
+                  style={{
+                    backgroundColor: `${p.accent}10`,
+                    border: `1px solid ${p.accent}30`,
+                  }}
+                >
+                  <span
+                    className="h-1.5 w-1.5 rounded-full"
+                    style={{ backgroundColor: p.accent, boxShadow: `0 0 6px ${p.accent}` }}
+                  />
+                  {p.name}
+                </button>
+              ))}
+            </div>
           </div>
 
           {/* Scroll hint */}
@@ -262,42 +293,72 @@ function App() {
           aria-labelledby="gf-contacto"
           className="h-dvh w-full snap-section relative overflow-hidden flex flex-col"
         >
-          <div className="aurora" aria-hidden="true" />
-          <div className="absolute inset-0 bg-grid opacity-40" aria-hidden="true" />
+          <div className="aurora-mono" aria-hidden="true" />
+          <div className="absolute inset-0 bg-grid opacity-25" aria-hidden="true" />
           <div className="noise" aria-hidden="true" />
 
-          <div className="relative z-10 flex-1 flex items-center justify-center px-5">
-            <div className="flex flex-col items-center">
-              <h2 id="gf-contacto" className="sr-only">Contacto</h2>
-              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass mb-6 md:mb-8 text-[10px] md:text-xs font-mono uppercase tracking-[0.2em] text-white/60">
-                Contacto
+          <div className="relative z-10 flex-1 flex items-center justify-center px-5 md:px-12">
+            <div className="w-full max-w-5xl mx-auto flex flex-col items-center text-center gap-6 md:gap-8">
+
+              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass text-[10px] md:text-xs font-mono uppercase tracking-[0.25em] text-white/60">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 pulse-dot" style={{ color: '#10b981' }} />
+                Abierto a proyectos
               </span>
+
+              <h2
+                id="gf-contacto"
+                className="font-display font-bold text-balance text-4xl md:text-6xl lg:text-7xl leading-[0.95] tracking-[-0.035em] max-w-3xl"
+              >
+                ¿Tenés un nicho raro? <span className="text-white/45">Hablemos.</span>
+              </h2>
+
+              <p className="text-white/55 text-sm md:text-lg leading-relaxed max-w-xl text-balance">
+                Construyo software para problemas puntuales que nadie más quiere resolver. Si el tuyo cae ahí, escribime.
+              </p>
+
               <a
                 href="mailto:hola@grindfactory.app"
-                className="btn-glow inline-flex items-center gap-2 px-7 py-4 rounded-full bg-white text-black font-semibold text-base md:text-lg shadow-xl"
+                className="btn-glow inline-flex items-center gap-2 px-6 md:px-7 py-3.5 md:py-4 rounded-full bg-white text-black font-semibold text-base md:text-lg mt-1"
               >
                 hola@grindfactory.app
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M7 17L17 7M17 7H8M17 7V16" />
                 </svg>
               </a>
+
+              {/* Stats row */}
+              <dl className="grid grid-cols-3 gap-px mt-6 md:mt-10 w-full max-w-2xl rounded-xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-md">
+                {[
+                  { k: 'Apps en el aire', v: '06' },
+                  { k: 'Mercados distintos', v: '06' },
+                  { k: 'Fundadores', v: '01' },
+                ].map((s) => (
+                  <div key={s.k} className="flex flex-col items-center justify-center gap-1 bg-black/30 px-4 py-5 md:py-6">
+                    <dd className="font-display font-bold text-2xl md:text-4xl tracking-[-0.03em] tabular text-white">
+                      {s.v}
+                    </dd>
+                    <dt className="font-mono uppercase tracking-[0.2em] text-[9px] md:text-[10px] text-white/45">
+                      {s.k}
+                    </dt>
+                  </div>
+                ))}
+              </dl>
             </div>
           </div>
 
           {/* Footer */}
-          <footer className="relative z-10 border-t border-white/5 bg-black/30 backdrop-blur-sm px-5 md:px-12 py-6 md:py-8">
-            <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+          <footer className="relative z-10 border-t border-white/5 bg-black/30 backdrop-blur-sm px-5 md:px-12 py-5 md:py-6">
+            <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3">
               <div className="flex items-center gap-2.5">
-                <img src="/favicon.webp" alt="" width={26} height={26} className="rounded-md block" />
+                <img src="/favicon.webp" alt="" width={24} height={24} className="rounded-md block" />
                 <span className="font-display font-bold text-sm tracking-tight">Grind Factory</span>
+                <span className="hidden md:inline text-white/25">·</span>
+                <span className="hidden md:inline text-xs text-white/40">Buenos Aires · AR</span>
               </div>
-              <div className="flex items-center gap-4 md:gap-6 text-xs text-white/40">
-                <span>© {new Date().getFullYear()} Grind Factory</span>
-                <span className="hidden md:inline">·</span>
-                <a
-                  href="mailto:hola@grindfactory.app"
-                  className="hover:text-white/80 transition"
-                >
+              <div className="flex items-center gap-4 md:gap-5 text-xs text-white/40">
+                <span className="tabular">© {new Date().getFullYear()}</span>
+                <span className="text-white/20">·</span>
+                <a href="mailto:hola@grindfactory.app" className="hover:text-white/80 transition-colors">
                   hola@grindfactory.app
                 </a>
               </div>
@@ -347,7 +408,7 @@ function ProductSection({
       {/* Section number — huge, ghosted */}
       <div
         aria-hidden="true"
-        className="absolute top-[8vh] right-[4vw] md:top-[10vh] md:right-[4vw] font-display font-bold text-[20vw] md:text-[14vw] leading-none select-none pointer-events-none"
+        className="absolute top-[8vh] right-[4vw] md:top-[10vh] md:right-[4vw] font-display font-bold text-[20vw] md:text-[14vw] leading-none select-none pointer-events-none tabular"
         style={{
           color: 'transparent',
           WebkitTextStroke: `1px ${p.accent}25`,
@@ -359,7 +420,7 @@ function ProductSection({
 
       {/* Top meta bar */}
       <div className="absolute top-[10vh] md:top-[11vh] left-5 md:left-12 flex items-center gap-3 z-10">
-        <span className="font-mono text-[10px] md:text-xs tracking-[0.25em] text-white/40 uppercase">
+        <span className="font-mono text-[10px] md:text-xs tracking-[0.25em] text-white/40 uppercase tabular">
           {num} / {tot}
         </span>
         <span className="h-px w-10 md:w-16 bg-white/15" />
