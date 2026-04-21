@@ -228,18 +228,11 @@ function App() {
               className="text-white text-3xl sm:text-4xl md:text-6xl font-bold tracking-wider text-center"
             />
 
-            <h1
-              id="gf-h1"
-              className="font-display font-bold text-balance text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-[0.95] tracking-[-0.035em] mt-2 md:mt-4 max-w-3xl"
-            >
-              Apps propias. <span className="text-white/50">Nichos raros.</span>
+            <h1 id="gf-h1" className="sr-only">
+              Grind Factory — Apps propias. Nichos raros. Una fábrica de apps independientes desde Buenos Aires.
             </h1>
 
-            <p className="text-white/55 text-sm md:text-base max-w-md md:max-w-lg leading-relaxed text-balance">
-              Fábrica de software independiente. Seis apps, seis mercados, un solo fundador.
-            </p>
-
-            <div className="flex flex-wrap items-center justify-center gap-1.5 md:gap-2 mt-2 max-w-3xl">
+            <div className="flex flex-wrap items-center justify-center gap-1.5 md:gap-2 mt-4 md:mt-6 max-w-3xl">
               {products.map((p, i) => (
                 <button
                   key={p.name}
