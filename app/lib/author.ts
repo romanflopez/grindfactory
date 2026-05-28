@@ -3,27 +3,40 @@ export type Service = {
   title: string;
   pitch: string;
   deliverables: string[];
+  priceFrom: string;
+  duration: string;
   idealFor: string;
-  accent: string;
+};
+
+export type ProcessStep = {
+  n: string;
+  title: string;
+  description: string;
+  duration: string;
+};
+
+export type FAQItem = {
+  q: string;
+  a: string;
 };
 
 export const author = {
   name: "Román López",
   shortName: "Román",
+  initials: "RL",
   role: "Sr Frontend Engineer",
-  headline: "Construyo productos web y móviles que escalan.",
-  subheadline:
-    "10+ años de experiencia en React, React Native, Next.js, Angular y TypeScript. Disponible para proyectos freelance.",
+  headline:
+    "Construyo MVPs en producción y rescato frontends legacy para equipos que necesitan moverse rápido sin romper.",
   yearsExperience: 10,
   location: "Buenos Aires, AR",
   timezone: "GMT-3",
   available: true,
-  // Placeholder hasta subir foto real. Cuando tengas la foto: pone "/me.jpg" y subi el archivo a /public/me.jpg
+  availabilityNote: "Tomando proyectos a partir de julio 2026",
   photo: null as string | null,
   bio: [
-    "Soy Sr Frontend Engineer con más de 10 años en la industria. Empecé con jQuery cuando IE8 todavía importaba y crecí con React desde sus primeras versiones.",
-    "Construí desde dashboards internos para fintechs hasta apps móviles en producción. También levanto productos propios bajo el paraguas de Grind Factory cuando no estoy en proyectos de clientes.",
-    "Lo que me distingue: ya pasé por las decisiones difíciles. Sé cuándo refactorizar y cuándo dejarlo. Cuándo abstraer y cuándo duplicar. Cuándo decir que no.",
+    "Soy Sr Frontend Engineer con 10+ años entregando software en producción. Crecí con React desde sus primeras versiones y trabajé tanto en sistemas internos grandes como en startups donde el deploy lo hacía yo mismo a las 3 AM.",
+    "Hace 2 años empecé a construir mis propios productos bajo el paraguas de Grind Factory — 6 apps en producción en mercados distintos (cannabis, salud, legal, educación). Eso me dio algo que pocos freelancers tienen: pasé por todas las decisiones de un producto, no solo la capa de UI.",
+    "Cuando me contratás, no contratás a alguien que solo escribe React. Contratás a alguien que ya rompió cosas, ya las arregló, y sabe qué decisiones se pagan caro después.",
   ],
   email: "roman.francisc.lopez@gmail.com",
   publicEmail: "hola@grindfactory.app",
@@ -32,6 +45,7 @@ export const author = {
     linkedin: "https://www.linkedin.com/in/romanflopez/",
     workana: "https://www.workana.com/freelancer/romanflopez",
     grindFactory: "https://grindfactory.app",
+    calendly: "https://cal.com/romanflopez",
   },
   skills: {
     primary: [
@@ -46,63 +60,126 @@ export const author = {
       "Supabase / Postgres",
       "GraphQL",
       "Redux / Zustand",
-      "Vite / Webpack / Turbopack",
+      "Vite / Turbopack",
       "Vercel / AWS",
-      "Expo",
+      "Expo / EAS",
       "PWA",
       "Storybook",
       "Playwright / Jest",
-      "OpenAI / AI integration",
+      "OpenAI integration",
     ],
   },
   highlights: [
-    { years: "10+", label: "Años en producción" },
-    { years: "06", label: "Productos propios en el aire" },
-    { years: "20+", label: "Equipos / clientes" },
+    { value: "10+", label: "Años en producción" },
+    { value: "06", label: "Productos propios en el aire" },
+    { value: "100%", label: "Remote · LATAM friendly" },
   ],
 };
 
 export const services: Service[] = [
   {
-    id: "frontend",
-    title: "Frontend Engineering",
+    id: "mvp",
+    title: "MVP en producción",
     pitch:
-      "Implementación de interfaces complejas en React, Next.js o Angular. Performance, accesibilidad y mantenibilidad como defaults, no afterthought.",
+      "Idea a producto deployado, listo para usuarios reales. Stack Next.js + Supabase + Vercel para mantener velocidad y costos bajos al inicio.",
     deliverables: [
-      "Arquitectura React/Next App Router",
-      "Sistema de diseño + Storybook",
-      "Migraciones legacy → moderno",
-      "Code review + mentoring",
+      "Producto deployado en Vercel",
+      "Auth, DB y payments configurados",
+      "Landing + dashboard cliente",
+      "Documentación + handoff de 2 semanas",
     ],
-    idealFor: "Equipos que necesitan un Sr que entre y mueva el código sin romper.",
-    accent: "#10b981",
+    priceFrom: "USD 8.000",
+    duration: "6 a 10 semanas",
+    idealFor:
+      "Founders no técnicos o equipos que necesitan validar una idea con producto real, no mockups.",
+  },
+  {
+    id: "frontend-migration",
+    title: "Frontend migration / refactor",
+    pitch:
+      "Aplicaciones legacy que crecieron sin sistema. React class components, Angular viejo, jQuery, CSS sin sistema. Migrar sin romper.",
+    deliverables: [
+      "Audit técnico inicial",
+      "Plan de migración por fases",
+      "Implementación + sistema de diseño",
+      "Code review continuo con tu equipo",
+    ],
+    priceFrom: "USD 6.000",
+    duration: "4 a 8 semanas",
+    idealFor:
+      "Equipos con producto en producción que necesitan modernizar el frontend sin congelar features.",
   },
   {
     id: "mobile",
-    title: "Mobile (React Native)",
+    title: "App mobile (React Native)",
     pitch:
-      "Apps móviles cross-platform con React Native y Expo. iOS + Android desde una sola codebase, listas para stores.",
+      "iOS + Android desde una sola codebase con React Native y Expo. Listas para stores con pipeline de release automatizado.",
     deliverables: [
-      "App nueva end-to-end",
-      "Native modules + integraciones",
-      "Optimización de performance",
-      "Pipeline de release (EAS)",
+      "App publicada en App Store y Google Play",
+      "Native modules según necesidad",
+      "Pipeline EAS con OTA updates",
+      "Documentación + handoff de 2 semanas",
     ],
-    idealFor: "Startups que necesitan app móvil sin armar dos equipos.",
-    accent: "#06b6d4",
+    priceFrom: "USD 12.000",
+    duration: "8 a 14 semanas",
+    idealFor: "Startups que necesitan presencia móvil sin armar dos equipos nativos.",
+  },
+];
+
+export const process: ProcessStep[] = [
+  {
+    n: "01",
+    title: "Discovery",
+    description:
+      "Call de 30 minutos sin compromiso. Me contás el problema, te digo si soy el match correcto. Si no lo soy, te recomiendo a alguien que sí.",
+    duration: "30 min · gratis",
   },
   {
-    id: "mvp",
-    title: "MVP Full-Stack",
-    pitch:
-      "De idea a producto en producción en semanas. Next.js + Supabase + Vercel. Stack pragmático, deploy continuo, costos bajos al inicio.",
-    deliverables: [
-      "Producto deployado y monitoreado",
-      "Auth + DB + payments setup",
-      "Landing + dashboard cliente",
-      "Documentación para handoff",
-    ],
-    idealFor: "Founders no técnicos o equipos que quieren validar rápido.",
-    accent: "#8b5cf6",
+    n: "02",
+    title: "Propuesta",
+    description:
+      "Te paso scope, timeline, milestones y costo cerrado en USD. Sin sorpresas a mitad de camino, sin horas escondidas.",
+    duration: "3 a 5 días hábiles",
+  },
+  {
+    n: "03",
+    title: "Sprints semanales",
+    description:
+      "Demo cada viernes con avance real, no slides. Acceso al repo desde el día 1. Iteramos sobre lo que ves, no sobre lo que imaginás.",
+    duration: "Durante todo el proyecto",
+  },
+  {
+    n: "04",
+    title: "Handoff",
+    description:
+      "Deploy en producción, documentación técnica, runbook básico y 2 semanas de soporte incluidas por si algo cruje después del launch.",
+    duration: "Última semana + 2 de soporte",
+  },
+];
+
+export const faq: FAQItem[] = [
+  {
+    q: "¿En qué time zone trabajás?",
+    a: "Buenos Aires (GMT-3). Tengo overlap con horarios EU mañana, costa este de US tarde, y Latam todo el día. Hago calls en español o inglés.",
+  },
+  {
+    q: "¿Cómo cobrás?",
+    a: "Fixed price por proyecto en USD. Pago en 3 tramos: 30% al inicio, 40% en demo intermedia, 30% al handoff. Wire, Wise, crypto o como te convenga. Factura formal disponible.",
+  },
+  {
+    q: "¿Trabajás solo o en equipo?",
+    a: "Por default trabajo solo end-to-end. Si el proyecto necesita backend más pesado o diseño UX dedicado, traigo colaboradores con los que ya trabajé y respondo yo por todo.",
+  },
+  {
+    q: "¿Hacés diseño UI/UX?",
+    a: "Hago diseño funcional senior — interfaces que funcionan, claras y pulidas. Para producto con identidad de marca fuerte o investigación UX profunda traigo diseñador.",
+  },
+  {
+    q: "¿Qué tipo de proyectos NO tomás?",
+    a: "WordPress, Shopify customization, scraping ilegal, sitios solo de marketing sin lógica, proyectos donde el cliente necesita un equipo de 5 personas. Soy ingeniero senior, no agencia.",
+  },
+  {
+    q: "¿Y si necesito empezar antes de julio 2026?",
+    a: "Escribime igual. Tengo network de gente buena que recomiendo cuando estoy lleno. Sin comisión, sin vueltas.",
   },
 ];

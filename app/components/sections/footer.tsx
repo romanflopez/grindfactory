@@ -1,31 +1,32 @@
-import Image from "next/image";
 import { author } from "@/app/lib/author";
 
 export function Footer() {
   return (
-    <footer className="relative z-10 border-t border-white/5 bg-black/40 backdrop-blur-sm px-5 md:px-12 py-5 md:py-6">
-      <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3">
-        <div className="flex items-center gap-2.5">
-          <Image src="/favicon.webp" alt="" width={24} height={24} className="rounded-md block" />
-          <span className="font-display font-bold text-sm tracking-tight">Grind Factory</span>
-          <span className="hidden md:inline text-white/25">·</span>
-          <span className="hidden md:inline text-xs text-white/40">{author.location}</span>
+    <footer className="relative border-t border-white/[0.06] py-10 md:py-12">
+      <div className="max-w-6xl mx-auto px-5 md:px-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
+        <div className="flex flex-col gap-1.5">
+          <div className="flex items-center gap-2.5">
+            <span className="flex items-center justify-center w-6 h-6 rounded bg-white text-black font-display font-bold text-[10px] tracking-tight">
+              {author.initials}
+            </span>
+            <span className="font-display font-semibold text-sm">{author.name}</span>
+          </div>
+          <span className="font-mono text-[10px] text-white/35 uppercase tracking-[0.2em]">
+            {author.role} · {author.location}
+          </span>
         </div>
-        <div className="flex items-center gap-4 md:gap-5 text-xs text-white/40">
-          <span className="tabular">© {new Date().getFullYear()}</span>
-          <span className="text-white/20">·</span>
-          <a href={`mailto:${author.publicEmail}`} className="hover:text-white/80 transition-colors">
+
+        <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-white/45">
+          <a href={`mailto:${author.publicEmail}`} className="hover:text-white transition-colors">
             {author.publicEmail}
           </a>
-          <span className="text-white/20">·</span>
-          <a
-            href={author.links.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-white/80 transition-colors"
-          >
+          <a href={author.links.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
             LinkedIn
           </a>
+          <a href={author.links.github} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+            GitHub
+          </a>
+          <span className="tabular">© {new Date().getFullYear()}</span>
         </div>
       </div>
     </footer>
