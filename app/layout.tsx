@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { products } from "@/app/lib/products";
+import { author, services } from "@/app/lib/author";
 import "./globals.css";
 
 const sans = Inter({
@@ -24,31 +24,34 @@ const mono = JetBrains_Mono({
 });
 
 const SITE_URL = "https://grindfactory.app";
-const TITLE = "Grind Factory — Apps propias. Nichos raros.";
-const DESCRIPTION =
-  "Una fábrica de apps independientes. Cada una resuelve un problema puntual en un mercado distinto — cannabis, salud, trámites, derecho laboral y más. Desde Buenos Aires.";
+const TITLE = `${author.name} — ${author.role} · Freelance`;
+const DESCRIPTION = `${author.role} con ${author.yearsExperience}+ años de experiencia. React, React Native, Next.js, Angular y TypeScript. Disponible para proyectos freelance desde Buenos Aires.`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: TITLE,
+  title: {
+    default: TITLE,
+    template: `%s · ${author.name}`,
+  },
   description: DESCRIPTION,
   keywords: [
-    "grind factory",
-    "grindfactory",
-    "apps argentina",
-    "indie apps",
-    "software buenos aires",
+    "Román López",
+    "Roman Lopez",
+    "Sr Frontend Engineer",
     "freelance frontend",
-    "sr frontend engineer",
-    "react native argentina",
-    "next.js freelance",
-    "grovly",
-    "nowly",
-    "licencia argentina",
-    "liquidacion laboral",
-    "regatea tu multa",
+    "React developer Argentina",
+    "React Native developer",
+    "Next.js freelance",
+    "Angular developer",
+    "TypeScript engineer",
+    "Buenos Aires freelance",
+    "Upwork frontend",
+    "Workana frontend",
+    "Toptal frontend",
+    "grindfactory",
   ],
-  authors: [{ name: "Grind Factory" }],
+  authors: [{ name: author.name, url: SITE_URL }],
+  creator: author.name,
   robots: {
     index: true,
     follow: true,
@@ -60,8 +63,8 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    type: "website",
-    siteName: "Grind Factory",
+    type: "profile",
+    siteName: author.name,
     url: SITE_URL,
     title: TITLE,
     description: DESCRIPTION,
@@ -89,7 +92,7 @@ export const metadata: Metadata = {
   manifest: "/site.webmanifest",
   appleWebApp: {
     capable: true,
-    title: "Grind Factory",
+    title: author.name,
     statusBarStyle: "black-translucent",
   },
   formatDetection: {
@@ -106,66 +109,62 @@ export const viewport: Viewport = {
   viewportFit: "cover",
 };
 
-const orgSchema = {
+const personSchema = {
   "@context": "https://schema.org",
-  "@type": "Organization",
-  name: "Grind Factory",
+  "@type": "Person",
+  name: author.name,
   url: `${SITE_URL}/`,
-  logo: `${SITE_URL}/favicon.webp`,
-  image: `${SITE_URL}/og-image.png`,
+  image: author.photo ? `${SITE_URL}${author.photo}` : `${SITE_URL}/og-image.png`,
+  jobTitle: author.role,
   description: DESCRIPTION,
-  foundingLocation: {
-    "@type": "Place",
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: "Buenos Aires",
-      addressCountry: "AR",
-    },
+  email: author.publicEmail,
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Buenos Aires",
+    addressCountry: "AR",
   },
-  email: "hola@grindfactory.app",
-  slogan: "Apps propias. Nichos raros.",
-  founder: {
-    "@type": "Person",
-    name: "Román López",
-    jobTitle: "Sr Frontend Engineer",
+  worksFor: {
+    "@type": "Organization",
+    name: "Grind Factory",
     url: `${SITE_URL}/`,
   },
+  knowsAbout: [
+    "React",
+    "React Native",
+    "Next.js",
+    "Angular",
+    "TypeScript",
+    "Frontend Architecture",
+    "Mobile Development",
+  ],
+  sameAs: [author.links.linkedin, author.links.github, author.links.workana],
 };
 
 const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  name: "Grind Factory",
+  name: `${author.name} — ${author.role}`,
   url: `${SITE_URL}/`,
   inLanguage: "es-AR",
-  publisher: {
-    "@type": "Organization",
-    name: "Grind Factory",
+  author: {
+    "@type": "Person",
+    name: author.name,
     url: `${SITE_URL}/`,
   },
 };
 
-const itemListSchema = {
+const servicesSchema = {
   "@context": "https://schema.org",
-  "@type": "ItemList",
-  name: "Apps de Grind Factory",
-  itemListElement: products.map((p, i) => ({
-    "@type": "ListItem",
-    position: i + 1,
-    item: {
-      "@type":
-        p.device === "phone"
-          ? "MobileApplication"
-          : p.category.includes("SaaS")
-            ? "SoftwareApplication"
-            : "WebApplication",
-      name: p.name,
-      description: p.description,
-      url: p.url !== "#" ? p.url : `${SITE_URL}/projects/${p.slug}`,
-      applicationCategory: "BusinessApplication",
-      operatingSystem: p.device === "phone" ? "iOS, Android" : "Web",
-    },
-  })),
+  "@type": "ProfessionalService",
+  name: `${author.name} — Freelance Frontend Engineering`,
+  url: `${SITE_URL}/`,
+  provider: {
+    "@type": "Person",
+    name: author.name,
+  },
+  areaServed: "Worldwide",
+  serviceType: services.map((s) => s.title),
+  description: DESCRIPTION,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -177,7 +176,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <SpeedInsights />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
         />
         <script
           type="application/ld+json"
@@ -185,7 +184,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesSchema) }}
         />
       </body>
     </html>

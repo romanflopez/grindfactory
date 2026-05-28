@@ -1,8 +1,7 @@
-import { products } from "@/app/lib/products";
 import { Hero } from "@/app/components/sections/hero";
-import { ProductSection } from "@/app/components/sections/product";
+import { Services } from "@/app/components/sections/services";
 import { About } from "@/app/components/sections/about";
-import { HireMe } from "@/app/components/sections/hire-me";
+import { Work } from "@/app/components/sections/work";
 import { Contact } from "@/app/components/sections/contact";
 import { Footer } from "@/app/components/sections/footer";
 
@@ -10,13 +9,9 @@ export default function Page() {
   return (
     <div className="snap-container">
       <Hero />
-
-      {products.map((p, i) => (
-        <ProductSection key={p.slug} product={p} index={i} total={products.length} />
-      ))}
-
+      <Services />
       <About />
-      <HireMe />
+      <Work />
       <Contact />
       <Footer />
     </div>
