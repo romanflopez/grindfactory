@@ -1,32 +1,36 @@
-import { author } from "@/app/lib/author";
+import { GF_WHATSAPP } from "@/app/lib/grindfactory";
 
 export function Footer() {
   return (
-    <footer className="relative border-t border-white/[0.06] py-10 md:py-12">
-      <div className="max-w-6xl mx-auto px-5 md:px-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
-        <div className="flex flex-col gap-1.5">
-          <div className="flex items-center gap-2.5">
-            <span className="flex items-center justify-center w-6 h-6 rounded bg-white text-black font-display font-bold text-[10px] tracking-tight">
-              {author.initials}
-            </span>
-            <span className="font-display font-semibold text-sm">{author.name}</span>
-          </div>
-          <span className="font-mono text-[10px] text-white/35 uppercase tracking-[0.2em]">
-            {author.role} · {author.location}
-          </span>
+    <footer style={{ padding: "64px 48px 48px", borderTop: "1px solid #1e1e1e" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr 1fr", gap: 48, marginBottom: 64 }}>
+
+        <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+          <span style={{ fontSize: 15, fontWeight: 600 }}>GrindFactory</span>
+          <p style={{ fontSize: 13, color: "#555", lineHeight: 1.6, margin: 0 }}>
+            Estudio de diseño y desarrollo.<br />Buenos Aires, Argentina.
+          </p>
         </div>
 
-        <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-white/45">
-          <a href={`mailto:${author.publicEmail}`} className="hover:text-white transition-colors">
-            {author.publicEmail}
-          </a>
-          <a href={author.links.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
-            LinkedIn
-          </a>
-          <a href={author.links.github} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
-            GitHub
-          </a>
-          <span className="tabular">© {new Date().getFullYear()}</span>
+        <div className="footer-col">
+          <h4>Productos propios</h4>
+          <a href="https://grovly.grindfactory.app" target="_blank" rel="noopener noreferrer">Grovly ↗</a>
+          <a href="https://turnia-mocha.vercel.app" target="_blank" rel="noopener noreferrer">Vera ↗</a>
+          <a href="https://regatea-tu-multa.grindfactory.app" target="_blank" rel="noopener noreferrer">regateaTuMulta ↗</a>
+        </div>
+
+        <div className="footer-col">
+          <h4>Estudio</h4>
+          <a href="#servicios">Servicios</a>
+          <a href="#proceso">Proceso</a>
+          <a href="#portfolio">Portfolio</a>
+          <a href="#faq">FAQ</a>
+        </div>
+
+        <div className="footer-col">
+          <h4>Contacto</h4>
+          <a href={GF_WHATSAPP} target="_blank" rel="noopener noreferrer">WhatsApp ↗</a>
+          <a href="mailto:hola@grindfactory.app">hola@grindfactory.app</a>
         </div>
       </div>
     </footer>

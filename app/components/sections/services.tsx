@@ -1,80 +1,101 @@
-import { services } from "@/app/lib/author";
+const SERVICES = [
+  {
+    icon: "⬡",
+    num: "01",
+    title: "Website",
+    desc: "Sitios de marketing de alto rendimiento, páginas de destino y sitios web corporativos — diseñados para la conversión y la velocidad.",
+    chips: [
+      { icon: "N", label: "Next.js & React" },
+      { icon: "■", label: "Headless CMS" },
+      { icon: "◎", label: "SEO & Performance" },
+      { icon: "⊞", label: "A/B Testing" },
+    ],
+  },
+  {
+    icon: "✦",
+    num: "02",
+    title: "Branding",
+    desc: "Identidades de marca, desde el logotipo hasta el sistema de diseño — identidades que perduran y se mantienen coherentes en todos los puntos de contacto.",
+    chips: [
+      { icon: "A", label: "Logo & Wordmark" },
+      { icon: "◈", label: "Visual Identity" },
+      { icon: "⊟", label: "Design System" },
+      { icon: "≡", label: "Brand Guidelines" },
+    ],
+  },
+  {
+    icon: "{ }",
+    num: "03",
+    title: "Software",
+    desc: "Herramientas a medida, plataformas internas y productos SaaS. Del MVP a la solución empresarial escalable.",
+    chips: [
+      { icon: "⊞", label: "Web apps & Dashboards" },
+      { icon: "⇄", label: "API & Backend" },
+      { icon: "▣", label: "SaaS platforms" },
+      { icon: "⚙", label: "Internal tools" },
+    ],
+  },
+  {
+    icon: "phone",
+    num: "04",
+    title: "Apps Móviles",
+    desc: "Aplicaciones nativas y multiplataforma con una experiencia de usuario de primera clase — iOS, Android y todo lo de en medio.",
+    chips: [
+      { icon: "◉", label: "iOS & Android" },
+      { icon: "⚛", label: "React Native" },
+      { icon: "↑", label: "App Store launch" },
+      { icon: "◎", label: "Push & Analytics" },
+    ],
+  },
+];
 
 export function Services() {
   return (
-    <section id="services" aria-labelledby="gf-services" className="relative py-20 md:py-28">
-      <div className="max-w-6xl mx-auto px-5 md:px-8 flex flex-col gap-10 md:gap-14">
-        <header className="flex flex-col gap-4 max-w-3xl">
-          <div className="section-label">
-            <span className="section-label-num">01 / 05</span>
-            <span className="section-label-bar" />
-            <span className="section-label-text">Servicios</span>
-          </div>
-          <h2
-            id="gf-services"
-            className="font-display font-bold text-4xl md:text-5xl lg:text-6xl leading-[1] tracking-[-0.035em] text-balance"
-          >
-            En qué te puedo ayudar.
-          </h2>
-          <p className="text-white/55 text-base md:text-lg leading-relaxed max-w-2xl">
-            Tres tipos de proyecto. Tarifa cerrada en USD, sin sorpresas. Si tu caso no encaja, escribime igual.
-          </p>
-        </header>
+    <section id="servicios" style={{ padding: "120px 48px" }}>
+      <div className="section-header rv" style={{ marginBottom: 64 }}>
+        <p className="section-label">[03] Servicios / Lo que hacemos</p>
+        <h2
+          style={{
+            fontSize: "clamp(36px, 4vw, 56px)",
+            fontWeight: 400,
+            letterSpacing: "-.02em",
+            lineHeight: 1.1,
+            marginTop: 12,
+          }}
+        >
+          Cuatro <span className="serif-italic">disciplinas.</span> Un equipo.
+        </h2>
+      </div>
 
-        <ul className="grid md:grid-cols-3 gap-4 md:gap-5">
-          {services.map((s, i) => (
-            <li key={s.id} className="card flex flex-col gap-5 p-6 md:p-7">
-              <div className="flex items-center justify-between">
-                <span className="font-mono text-[10px] tracking-[0.25em] uppercase font-semibold text-white/35 tabular">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <span className="font-mono text-[10px] tracking-[0.2em] uppercase text-white/45">
-                  {s.duration}
-                </span>
-              </div>
-
-              <h3 className="font-display font-bold text-2xl md:text-[1.75rem] tracking-[-0.02em] leading-[1.05]">
-                {s.title}
-              </h3>
-
-              <p className="text-white/60 text-sm leading-relaxed">{s.pitch}</p>
-
-              <ul className="flex flex-col gap-1.5 mt-1">
-                {s.deliverables.map((d) => (
-                  <li key={d} className="flex items-start gap-2 text-xs text-white/55">
-                    <span className="mt-1.5 h-1 w-1 rounded-full flex-shrink-0 bg-emerald-400" />
-                    <span>{d}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <div className="mt-auto pt-5 border-t border-white/8 flex items-end justify-between gap-3">
-                <div className="flex flex-col gap-0.5">
-                  <span className="font-mono text-[9px] uppercase tracking-[0.25em] text-white/30">
-                    Desde
-                  </span>
-                  <span className="font-display font-bold text-2xl md:text-3xl tabular">
-                    {s.priceFrom}
-                  </span>
-                </div>
-                <a
-                  href="#contact"
-                  className="text-xs font-medium text-white/65 hover:text-white inline-flex items-center gap-1.5 transition-colors"
-                >
-                  Cotizar
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M5 12h14M13 6l6 6-6 6" />
+      <div className="services-grid">
+        {SERVICES.map((s, i) => (
+          <div key={s.num} className={`service-card rv${i === 1 ? " d1" : i === 2 ? " d1" : i === 3 ? " d2" : ""}`}>
+            <div className="service-card-top">
+              <div className="service-icon-box">
+                {s.icon === "phone" ? (
+                  <svg width="18" height="24" viewBox="0 0 18 24" fill="none" aria-hidden="true">
+                    <rect x="1" y="1" width="16" height="22" rx="3" stroke="currentColor" strokeWidth="1.5"/>
+                    <circle cx="9" cy="19.5" r="1.1" fill="currentColor"/>
+                    <line x1="6" y1="4.5" x2="12" y2="4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
                   </svg>
-                </a>
+                ) : s.icon}
               </div>
-
-              <p className="text-[11px] text-white/40 font-mono leading-relaxed">
-                <span className="text-white/30 uppercase tracking-[0.2em]">Ideal </span>
-                {s.idealFor}
-              </p>
-            </li>
-          ))}
-        </ul>
+              <span className="service-ghost-num">{s.num}</span>
+            </div>
+            <h3 className="service-title">{s.title}</h3>
+            <p className="service-desc">{s.desc}</p>
+            <hr className="service-divider" />
+            <div className="service-chips">
+              {s.chips.map((c) => (
+                <span key={c.label} className="service-chip">
+                  <span className="service-chip-icon">{c.icon}</span>
+                  {c.label}
+                </span>
+              ))}
+            </div>
+            <span className="service-arrow">→</span>
+          </div>
+        ))}
       </div>
     </section>
   );

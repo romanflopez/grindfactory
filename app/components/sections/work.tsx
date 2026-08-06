@@ -1,131 +1,111 @@
-import Image from "next/image";
-import Link from "next/link";
-import { products } from "@/app/lib/products";
+type Project = {
+  name: string;
+  category: string;
+  img: string;
+  url?: string;
+};
 
-export function Work() {
+const ROW_LEFT: Project[] = [
+  { name: "Grovly", category: "SaaS · B2B", img: "/assets/portfolio-grovly.png", url: "https://grovly.grindfactory.app" },
+  { name: "Vera", category: "Bot IA · WhatsApp", img: "/assets/portfolio-vera.png", url: "https://turnia-mocha.vercel.app" },
+  { name: "regateaTuMulta", category: "LegalTech · IA", img: "/assets/portfolio-regatea.png", url: "https://regatea-tu-multa.grindfactory.app" },
+  { name: "Nowly", category: "Producto · App", img: "/screens/nowly.jpg" },
+  { name: "Licencia Argentina", category: "App · Educación", img: "/screens/licencia-ar.png" },
+];
+
+const ROW_RIGHT: Project[] = [
+  { name: "Pelea tu multa", category: "LegalTech · Web", img: "/screens/pelea-tu-multa.png" },
+  { name: "Liquidación al día", category: "Web · Legal", img: "/screens/liquidacion-al-dia.png" },
+  { name: "Licencia Náutica", category: "App · Educación", img: "/screens/licencia-nautica.png" },
+  { name: "Grovly", category: "Dashboard · SaaS", img: "/screens/grovly.jpg", url: "https://grovly.grindfactory.app" },
+  { name: "Nowly", category: "App · Mobile", img: "/screens/nowly.jpg" },
+];
+
+function Tile({ p, duplicate = false }: { p: Project; duplicate?: boolean }) {
+  const inner = (
+    <>
+      <figure className="project-tile-visual">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={p.img}
+          alt={duplicate ? "" : `${p.name} — proyecto GrindFactory`}
+          loading="lazy"
+          decoding="async"
+          width={1080}
+          height={608}
+        />
+      </figure>
+      <div className="project-tile-copy">
+        <span className="project-tile-category">{p.category}</span>
+        <h3 className="project-tile-name">{p.name}</h3>
+        <span className="project-tile-arrow" aria-hidden="true">→</span>
+      </div>
+    </>
+  );
+
+  if (p.url) {
+    return (
+      <li className="projects-marquee-item" aria-hidden={duplicate || undefined}>
+        <a
+          className="project-tile"
+          href={p.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`Ver ${p.name}`}
+          tabIndex={duplicate ? -1 : undefined}
+        >
+          {inner}
+        </a>
+      </li>
+    );
+  }
+
   return (
-    <section id="work" aria-labelledby="gf-work" className="relative py-20 md:py-28 border-t border-white/[0.06]">
-      <div className="max-w-6xl mx-auto px-5 md:px-8 flex flex-col gap-10 md:gap-14">
-        <header className="flex flex-col gap-4 max-w-3xl">
-          <div className="section-label">
-            <span className="section-label-num">03 / 05</span>
-            <span className="section-label-bar" />
-            <span className="section-label-text">Trabajos seleccionados</span>
-          </div>
+    <li className="projects-marquee-item" aria-hidden={duplicate || undefined}>
+      <div className="project-tile">{inner}</div>
+    </li>
+  );
+}
+
+function Row({ items, dir }: { items: Project[]; dir: "left" | "right" }) {
+  return (
+    <div className={`projects-marquee-row projects-marquee-row--${dir}`}>
+      <ul className="projects-marquee-track">
+        {items.map((p, i) => (
+          <Tile key={`${dir}-${i}`} p={p} />
+        ))}
+        {items.map((p, i) => (
+          <Tile key={`${dir}-dup-${i}`} p={p} duplicate />
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+export function Portfolio() {
+  return (
+    <section id="portfolio" className="projects" aria-labelledby="projects-title">
+      <div className="projects-shell">
+        <header className="section-header rv" style={{ marginBottom: 56 }}>
+          <p className="section-label">[02] Portfolio / 2024 — 2026</p>
           <h2
-            id="gf-work"
-            className="font-display font-bold text-4xl md:text-5xl lg:text-6xl leading-[1] tracking-[-0.035em] text-balance"
+            id="projects-title"
+            style={{
+              fontSize: "clamp(36px, 4vw, 56px)",
+              fontWeight: 400,
+              letterSpacing: "-.02em",
+              lineHeight: 1.1,
+              marginTop: 12,
+            }}
           >
-            Productos que construí end-to-end.
+            Lo que <span className="serif-italic">fabricamos.</span>
           </h2>
-          <p className="text-white/55 text-base md:text-lg leading-relaxed max-w-2xl">
-            Side projects bajo Grind Factory donde fui product, frontend y deploy. Sirven como prueba de craft: si los puedo hacer para mí, los puedo hacer para vos.
-          </p>
         </header>
+      </div>
 
-        <ul className="flex flex-col gap-16 md:gap-24">
-          {products.map((p, i) => {
-            const num = String(i + 1).padStart(2, "0");
-            const reverse = i % 2 === 1;
-            return (
-              <li key={p.slug} id={p.slug} className="scroll-mt-20">
-                <div className={`grid lg:grid-cols-2 gap-8 md:gap-14 items-center ${reverse ? "lg:[direction:rtl]" : ""}`}>
-                  <Link
-                    href={`/projects/${p.slug}`}
-                    className={`group block relative aspect-[16/10] rounded-2xl overflow-hidden border border-white/10 ${reverse ? "lg:[direction:ltr]" : ""}`}
-                    style={{ background: p.tint }}
-                  >
-                    <Image
-                      src={p.screenshot}
-                      alt={`${p.name} screenshot`}
-                      fill
-                      sizes="(min-width: 1024px) 50vw, 100vw"
-                      className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.02]"
-                    />
-                    <div
-                      className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity"
-                      style={{
-                        background: `linear-gradient(to top, ${p.glow.replace("0.35", "0.25")}, transparent 60%)`,
-                      }}
-                      aria-hidden="true"
-                    />
-                  </Link>
-
-                  <div className={`flex flex-col gap-4 ${reverse ? "lg:[direction:ltr]" : ""}`}>
-                    <div className="flex items-center gap-3 flex-wrap">
-                      <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-white/30 tabular">
-                        {num} / {String(products.length).padStart(2, "0")}
-                      </span>
-                      <span className="h-px w-8 bg-white/15" />
-                      <span
-                        className="font-mono text-[10px] uppercase tracking-[0.2em] font-semibold"
-                        style={{ color: p.accent }}
-                      >
-                        {p.category}
-                      </span>
-                      <span
-                        className="inline-flex items-center gap-1.5 text-[10px] uppercase tracking-[0.15em] font-semibold"
-                        style={{ color: p.status === "live" ? p.accent : "rgba(255,255,255,0.45)" }}
-                      >
-                        <span
-                          className={`h-1.5 w-1.5 rounded-full ${p.status === "live" ? "pulse-dot" : ""}`}
-                          style={{
-                            backgroundColor: p.status === "live" ? p.accent : "rgba(255,255,255,0.3)",
-                            color: p.accent,
-                          }}
-                        />
-                        {p.status === "live" ? "Live" : "Próximamente"}
-                      </span>
-                    </div>
-
-                    <h3 className="font-display font-bold text-3xl md:text-5xl tracking-[-0.03em] leading-[1] text-balance">
-                      {p.name}
-                    </h3>
-                    <p className="font-display text-lg md:text-xl text-white/70 leading-[1.3] text-balance">
-                      {p.tagline}
-                    </p>
-                    <p className="text-white/55 text-sm md:text-base leading-relaxed max-w-xl">
-                      {p.caseStudy.problem}
-                    </p>
-
-                    <ul className="flex flex-wrap gap-1.5 mt-1">
-                      {p.caseStudy.stack.map((s) => (
-                        <li
-                          key={s}
-                          className="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-mono text-white/65 bg-white/5 border border-white/10"
-                        >
-                          {s}
-                        </li>
-                      ))}
-                    </ul>
-
-                    <div className="flex flex-wrap items-center gap-3 mt-2">
-                      <Link
-                        href={`/projects/${p.slug}`}
-                        className="btn-ghost text-sm px-5 py-2.5"
-                      >
-                        Ver caso completo
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M5 12h14M13 6l6 6-6 6" />
-                        </svg>
-                      </Link>
-                      {p.url !== "#" && (
-                        <a
-                          href={p.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-xs font-mono text-white/40 hover:text-white/80 transition-colors"
-                        >
-                          {p.url.replace("https://", "")} ↗
-                        </a>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </li>
-            );
-          })}
-        </ul>
+      <div className="projects-marquee" aria-label="Proyectos seleccionados">
+        <Row items={ROW_LEFT} dir="left" />
+        <Row items={ROW_RIGHT} dir="right" />
       </div>
     </section>
   );

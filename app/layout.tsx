@@ -1,19 +1,21 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Space_Grotesk, JetBrains_Mono } from "next/font/google";
+import { Instrument_Serif, Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { author, services } from "@/app/lib/author";
 import "./globals.css";
 
-const sans = Inter({
+const serif = Instrument_Serif({
   subsets: ["latin"],
-  variable: "--font-sans",
+  variable: "--font-serif",
+  weight: "400",
+  style: ["normal", "italic"],
   display: "swap",
 });
 
-const display = Space_Grotesk({
+const sans = Space_Grotesk({
   subsets: ["latin"],
-  variable: "--font-display",
+  variable: "--font-sans",
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
@@ -24,34 +26,31 @@ const mono = JetBrains_Mono({
 });
 
 const SITE_URL = "https://grindfactory.app";
-const TITLE = `${author.name} — ${author.role} · Freelance`;
-const DESCRIPTION = `${author.role} con ${author.yearsExperience}+ años de experiencia. React, React Native, Next.js, Angular y TypeScript. Disponible para proyectos freelance desde Buenos Aires.`;
+const TITLE = "GrindFactory — Diseño y Desarrollo de Software · Buenos Aires";
+const DESCRIPTION =
+  "Estudio de diseño y desarrollo en Buenos Aires. Landings que convierten, SaaS a medida y automatizaciones — pensados, dibujados y codeados por el mismo equipo que ya tiene productos propios en la calle.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
     default: TITLE,
-    template: `%s · ${author.name}`,
+    template: `%s · GrindFactory`,
   },
   description: DESCRIPTION,
   keywords: [
-    "Román López",
-    "Roman Lopez",
-    "Sr Frontend Engineer",
-    "freelance frontend",
-    "React developer Argentina",
-    "React Native developer",
-    "Next.js freelance",
-    "Angular developer",
-    "TypeScript engineer",
-    "Buenos Aires freelance",
-    "Upwork frontend",
-    "Workana frontend",
-    "Toptal frontend",
+    "diseño web Buenos Aires",
+    "desarrollo software Argentina",
+    "agencia digital Buenos Aires",
+    "landing pages Argentina",
+    "SaaS a medida",
+    "automatización WhatsApp Telegram",
+    "React Next.js TypeScript",
+    "Supabase Argentina",
+    "desarrollo web PyMEs",
     "grindfactory",
   ],
-  authors: [{ name: author.name, url: SITE_URL }],
-  creator: author.name,
+  authors: [{ name: "GrindFactory", url: SITE_URL }],
+  creator: "GrindFactory",
   robots: {
     index: true,
     follow: true,
@@ -59,12 +58,10 @@ export const metadata: Metadata = {
     "max-snippet": -1,
     "max-video-preview": -1,
   },
-  alternates: {
-    canonical: "/",
-  },
+  alternates: { canonical: "/" },
   openGraph: {
-    type: "profile",
-    siteName: author.name,
+    type: "website",
+    siteName: "GrindFactory",
     url: SITE_URL,
     title: TITLE,
     description: DESCRIPTION,
@@ -92,99 +89,62 @@ export const metadata: Metadata = {
   manifest: "/site.webmanifest",
   appleWebApp: {
     capable: true,
-    title: author.name,
+    title: "GrindFactory",
     statusBarStyle: "black-translucent",
   },
-  formatDetection: {
-    telephone: false,
-  },
+  formatDetection: { telephone: false },
 };
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: dark)", color: "#06060a" },
-    { media: "(prefers-color-scheme: light)", color: "#06060a" },
+    { media: "(prefers-color-scheme: dark)", color: "#0A0A0B" },
+    { media: "(prefers-color-scheme: light)", color: "#0A0A0B" },
   ],
   colorScheme: "dark",
   viewportFit: "cover",
 };
 
-const personSchema = {
+const orgSchema = {
   "@context": "https://schema.org",
-  "@type": "Person",
-  name: author.name,
+  "@type": "ProfessionalService",
+  name: "GrindFactory",
   url: `${SITE_URL}/`,
-  image: author.photo ? `${SITE_URL}${author.photo}` : `${SITE_URL}/og-image.png`,
-  jobTitle: author.role,
+  image: `${SITE_URL}/og-image.png`,
   description: DESCRIPTION,
-  email: author.publicEmail,
   address: {
     "@type": "PostalAddress",
     addressLocality: "Buenos Aires",
     addressCountry: "AR",
   },
-  worksFor: {
-    "@type": "Organization",
-    name: "Grind Factory",
-    url: `${SITE_URL}/`,
-  },
-  knowsAbout: [
-    "React",
-    "React Native",
-    "Next.js",
-    "Angular",
-    "TypeScript",
-    "Frontend Architecture",
-    "Mobile Development",
+  areaServed: ["AR", "Worldwide"],
+  serviceType: [
+    "Diseño web",
+    "Desarrollo de software",
+    "SaaS a medida",
+    "Automatización e IA",
+    "Landing pages",
   ],
-  sameAs: [author.links.linkedin, author.links.github, author.links.workana],
-};
-
-const websiteSchema = {
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  name: `${author.name} — ${author.role}`,
-  url: `${SITE_URL}/`,
-  inLanguage: "es-AR",
-  author: {
-    "@type": "Person",
-    name: author.name,
-    url: `${SITE_URL}/`,
+  contactPoint: {
+    "@type": "ContactPoint",
+    telephone: "+54-9-11-3850-0960",
+    contactType: "sales",
+    availableLanguage: "Spanish",
   },
-};
-
-const servicesSchema = {
-  "@context": "https://schema.org",
-  "@type": "ProfessionalService",
-  name: `${author.name} — Freelance Frontend Engineering`,
-  url: `${SITE_URL}/`,
-  provider: {
-    "@type": "Person",
-    name: author.name,
-  },
-  areaServed: "Worldwide",
-  serviceType: services.map((s) => s.title),
-  description: DESCRIPTION,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es-AR" className={`${sans.variable} ${display.variable} ${mono.variable}`}>
+    <html
+      lang="es-AR"
+      className={`${serif.variable} ${sans.variable} ${mono.variable}`}
+    >
       <body>
         {children}
         <Analytics />
         <SpeedInsights />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesSchema) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }}
         />
       </body>
     </html>
