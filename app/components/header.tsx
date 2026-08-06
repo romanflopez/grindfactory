@@ -24,7 +24,18 @@ export function Header() {
         borderBottom: "1px solid #1a1a1a",
       }}
     >
-      <a href="#hero" style={{ fontSize: 15, fontWeight: 600, letterSpacing: ".04em" }}>
+      <a
+        href="#hero"
+        style={{
+          fontSize: 13,
+          fontWeight: 500,
+          letterSpacing: ".06em",
+          color: "#7a7a7a",
+          transition: "color .2s",
+        }}
+        onMouseEnter={(e) => (e.currentTarget.style.color = "#e8e6e1")}
+        onMouseLeave={(e) => (e.currentTarget.style.color = "#7a7a7a")}
+      >
         GrindFactory
       </a>
 

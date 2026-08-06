@@ -1,95 +1,94 @@
-type Project = {
-  name: string;
-  category: string;
-  img: string;
-  url?: string;
-};
+"use client";
 
-const ROW_LEFT: Project[] = [
-  { name: "Grovly", category: "SaaS · B2B", img: "/assets/portfolio-grovly.png", url: "https://grovly.grindfactory.app" },
-  { name: "Vera", category: "Bot IA · WhatsApp", img: "/assets/portfolio-vera.png", url: "https://turnia-mocha.vercel.app" },
-  { name: "regateaTuMulta", category: "LegalTech · IA", img: "/assets/portfolio-regatea.png", url: "https://regatea-tu-multa.grindfactory.app" },
-  { name: "Nowly", category: "Producto · App", img: "/screens/nowly.jpg" },
-  { name: "Licencia Argentina", category: "App · Educación", img: "/screens/licencia-ar.png" },
+import { useEffect, useRef } from "react";
+import { ownProducts } from "@/app/lib/grindfactory";
+
+const WORK_ITEMS = [
+  {
+    num: "01",
+    title: "Grovly",
+    tags: ["SaaS", "B2B"],
+    year: "2024",
+    url: "https://grovly.grindfactory.app",
+    img: "/assets/portfolio-grovly.png",
+  },
+  {
+    num: "02",
+    title: "Vera",
+    tags: ["Bot IA", "WhatsApp"],
+    year: "2025",
+    url: "https://turnia-mocha.vercel.app",
+    img: "/assets/portfolio-vera.png",
+  },
+  {
+    num: "03",
+    title: "regateaTuMulta",
+    tags: ["LegalTech", "IA"],
+    year: "2025",
+    url: "https://regatea-tu-multa.grindfactory.app",
+    img: "/assets/portfolio-regatea.png",
+  },
 ];
-
-const ROW_RIGHT: Project[] = [
-  { name: "Pelea tu multa", category: "LegalTech · Web", img: "/screens/pelea-tu-multa.png" },
-  { name: "Liquidación al día", category: "Web · Legal", img: "/screens/liquidacion-al-dia.png" },
-  { name: "Licencia Náutica", category: "App · Educación", img: "/screens/licencia-nautica.png" },
-  { name: "Grovly", category: "Dashboard · SaaS", img: "/screens/grovly.jpg", url: "https://grovly.grindfactory.app" },
-  { name: "Nowly", category: "App · Mobile", img: "/screens/nowly.jpg" },
-];
-
-function Tile({ p, duplicate = false }: { p: Project; duplicate?: boolean }) {
-  const inner = (
-    <>
-      <figure className="project-tile-visual">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={p.img}
-          alt={duplicate ? "" : `${p.name} — proyecto GrindFactory`}
-          loading="lazy"
-          decoding="async"
-          width={1080}
-          height={608}
-        />
-      </figure>
-      <div className="project-tile-copy">
-        <span className="project-tile-category">{p.category}</span>
-        <h3 className="project-tile-name">{p.name}</h3>
-        <span className="project-tile-arrow" aria-hidden="true">→</span>
-      </div>
-    </>
-  );
-
-  if (p.url) {
-    return (
-      <li className="projects-marquee-item" aria-hidden={duplicate || undefined}>
-        <a
-          className="project-tile"
-          href={p.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={`Ver ${p.name}`}
-          tabIndex={duplicate ? -1 : undefined}
-        >
-          {inner}
-        </a>
-      </li>
-    );
-  }
-
-  return (
-    <li className="projects-marquee-item" aria-hidden={duplicate || undefined}>
-      <div className="project-tile">{inner}</div>
-    </li>
-  );
-}
-
-function Row({ items, dir }: { items: Project[]; dir: "left" | "right" }) {
-  return (
-    <div className={`projects-marquee-row projects-marquee-row--${dir}`}>
-      <ul className="projects-marquee-track">
-        {items.map((p, i) => (
-          <Tile key={`${dir}-${i}`} p={p} />
-        ))}
-        {items.map((p, i) => (
-          <Tile key={`${dir}-dup-${i}`} p={p} duplicate />
-        ))}
-      </ul>
-    </div>
-  );
-}
 
 export function Portfolio() {
+  const cursorRef = useRef<HTMLDivElement>(null);
+  const cursorImgRef = useRef<HTMLImageElement>(null);
+
+  useEffect(() => {
+    const cursorEl = cursorRef.current;
+    const cursorImg = cursorImgRef.current;
+    if (!cursorEl || !cursorImg) return;
+
+    const items = document.querySelectorAll<HTMLAnchorElement>(".work-item[data-img]");
+
+    const onMove = (e: MouseEvent) => {
+      const x = e.clientX + 24;
+      const y = e.clientY - 120;
+      const clampedX = Math.min(x, window.innerWidth - 340);
+      const clampedY = Math.max(Math.min(y, window.innerHeight - 230), 10);
+      cursorEl.style.left = clampedX + "px";
+      cursorEl.style.top = clampedY + "px";
+    };
+
+    const handlers: Array<{ el: Element; enter: () => void; leave: () => void }> = [];
+
+    items.forEach((item) => {
+      const enter = () => {
+        const src = item.dataset.img ?? "";
+        cursorImg.src = src;
+        cursorEl.classList.add("visible");
+        document.addEventListener("mousemove", onMove);
+      };
+      const leave = () => {
+        cursorEl.classList.remove("visible");
+        document.removeEventListener("mousemove", onMove);
+      };
+      item.addEventListener("mouseenter", enter);
+      item.addEventListener("mouseleave", leave);
+      handlers.push({ el: item, enter, leave });
+    });
+
+    return () => {
+      handlers.forEach(({ el, enter, leave }) => {
+        el.removeEventListener("mouseenter", enter);
+        el.removeEventListener("mouseleave", leave);
+      });
+      document.removeEventListener("mousemove", onMove);
+    };
+  }, []);
+
   return (
-    <section id="portfolio" className="projects" aria-labelledby="projects-title">
-      <div className="projects-shell">
-        <header className="section-header rv" style={{ marginBottom: 56 }}>
+    <>
+      {/* Cursor floating image */}
+      <div ref={cursorRef} id="cursor-img">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img ref={cursorImgRef} src="" alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+      </div>
+
+      <section id="portfolio" style={{ padding: "120px 48px" }}>
+        <div className="section-header rv" style={{ marginBottom: 64 }}>
           <p className="section-label">[02] Portfolio / 2024 — 2026</p>
           <h2
-            id="projects-title"
             style={{
               fontSize: "clamp(36px, 4vw, 56px)",
               fontWeight: 400,
@@ -98,15 +97,34 @@ export function Portfolio() {
               marginTop: 12,
             }}
           >
-            Lo que <span className="serif-italic">fabricamos.</span>
+            Lo que{" "}
+            <span className="serif-italic">fabricamos.</span>
           </h2>
-        </header>
-      </div>
+        </div>
 
-      <div className="projects-marquee" aria-label="Proyectos seleccionados">
-        <Row items={ROW_LEFT} dir="left" />
-        <Row items={ROW_RIGHT} dir="right" />
-      </div>
-    </section>
+        <div className="work-list">
+          {WORK_ITEMS.map((item) => (
+            <a
+              key={item.num}
+              className="work-item rv"
+              href={item.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-img={item.img}
+            >
+              <span className="work-num">{item.num}</span>
+              <span className="work-title">{item.title}</span>
+              <span className="work-tags">
+                {item.tags.map((t) => (
+                  <span key={t} className="work-tag">{t}</span>
+                ))}
+              </span>
+              <span className="work-year">{item.year}</span>
+              <span className="work-arrow">↗</span>
+            </a>
+          ))}
+        </div>
+      </section>
+    </>
   );
 }

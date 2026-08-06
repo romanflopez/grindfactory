@@ -10,7 +10,7 @@ export function Hero() {
         minHeight: "100vh",
         display: "flex",
         flexDirection: "column",
-        justifyContent: "flex-end",
+        justifyContent: "center",
         paddingTop: 64,
         position: "relative",
         overflow: "hidden",
@@ -32,8 +32,10 @@ export function Hero() {
       <div
         style={{
           position: "relative", zIndex: 2,
-          padding: "0 48px 64px",
-          maxWidth: 860,
+          padding: "0 48px",
+          maxWidth: 900,
+          width: "100%",
+          margin: "0 auto",
         }}
       >
         <p className="section-label fade-up" style={{ marginBottom: 4 }}>
