@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { products } from "@/app/lib/products";
+import { APROBA } from "@/app/lib/aproba-legal";
 
 const SITE = "https://grindfactory.app";
 
@@ -12,6 +13,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 1,
     },
+    ...[APROBA.privacyPath, APROBA.termsPath].map((path) => ({
+      url: `${SITE}${path}`,
+      lastModified: new Date(APROBA.updatedISO),
+      changeFrequency: "yearly" as const,
+      priority: 0.3,
+    })),
     ...products.map((p) => ({
       url: `${SITE}/projects/${p.slug}`,
       lastModified: now,
