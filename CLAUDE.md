@@ -80,5 +80,5 @@ RESEND_FROM=        # optional, defaults to onboarding@resend.dev
 ### Other routes
 
 - `/projects/[slug]` — case study detail page, data from `products.ts` via `productBySlug()`
-- `/licencia-argentina/privacy` — privacy policy for a separate mobile app, unrelated to the main site
+- `/aproba/privacidad` and `/aproba/terminos` — legal pages for the separate Android app "Aprobá" (Google Play links); constants in `app/lib/aproba-legal.ts`. `/licencia-argentina/privacy` permanently redirects to `/aproba/privacidad` (`next.config.ts`)
 - `app/robots.ts` and `app/sitemap.ts` — auto-generated SEO files

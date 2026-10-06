@@ -4,21 +4,21 @@ import { APROBA } from "@/app/lib/aproba-legal";
 import { LegalShell } from "../_components/legal-shell";
 
 export const metadata: Metadata = {
-  title: { absolute: "Políticas de uso – Aprobá" },
+  title: { absolute: "Política de privacidad – Aprobá" },
   description:
     "Política de privacidad de Aprobá, la app para practicar el examen teórico de manejo: qué datos salen del dispositivo, a quién y para qué.",
+  openGraph: { title: "Política de privacidad – Aprobá", url: APROBA.privacyPath, type: "article" },
   alternates: { canonical: APROBA.privacyPath },
   robots: { index: true, follow: true },
 };
 
 export default function PrivacidadPage() {
   return (
-    <LegalShell current="privacidad" title="Política de privacidad">
+    <LegalShell current="privacidad" title="Política de privacidad – Aprobá">
       <p>
         Esta política explica qué información trata <strong>{APROBA.name}</strong> (la
         &ldquo;App&rdquo;), una aplicación de Android para practicar el examen teórico de manejo,
-        y qué hacemos con ella. El responsable es <strong>{APROBA.owner}</strong>, desarrollador
-        independiente (GrindFactory, Buenos Aires, Argentina).
+        y qué hacemos con ella.
       </p>
       <p className="legal-note">
         En resumen: la App no tiene cuentas ni te pide email, nombre ni teléfono. Todo tu progreso
@@ -26,7 +26,14 @@ export default function PrivacidadPage() {
         para mostrar anuncios, gestionar la compra opcional, detectar errores y medir el uso.
       </p>
 
-      <h2>1. Datos que quedan solo en tu dispositivo</h2>
+      <h2>1. Responsable y contacto</h2>
+      <p>
+        El responsable del tratamiento es <strong>{APROBA.owner}</strong>, desarrollador
+        independiente (GrindFactory, Buenos Aires, Argentina). Podés escribirnos a{" "}
+        <a href={`mailto:${APROBA.email}`}>{APROBA.email}</a>.
+      </p>
+
+      <h2>2. Datos que quedan solo en tu dispositivo</h2>
       <p>Estos datos se guardan localmente y no los recibimos ni los enviamos a ningún servidor:</p>
       <ul>
         <li>País elegido y clase de licencia.</li>
@@ -35,13 +42,15 @@ export default function PrivacidadPage() {
         <li>Racha, meta diaria y recordatorios configurados.</li>
       </ul>
       <p>
-        Al desinstalar la App, estos datos se borran del dispositivo.
+        Se conservan en el dispositivo hasta que desinstales la App o borres sus datos desde los
+        ajustes de Android.
       </p>
 
-      <h2>2. Datos que salen del dispositivo y a quién</h2>
+      <h2>3. Datos que se recolectan, para qué y con quién se comparten</h2>
       <p>
-        La App usa los servicios de terceros que se detallan abajo. Cada uno trata los datos según
-        su propia política.
+        Los datos que salen del dispositivo se comparten únicamente con los cuatro servicios de
+        terceros que se detallan abajo: Google AdMob, RevenueCat, Sentry y PostHog. Cada uno trata
+        los datos según su propia política.
       </p>
 
       <h3>Google AdMob — publicidad</h3>
@@ -50,6 +59,7 @@ export default function PrivacidadPage() {
           <strong>Qué recibe:</strong> identificador de publicidad del dispositivo, dirección IP,
           modelo y versión del sistema operativo, e interacciones con los anuncios.
         </li>
+        <li><strong>Para qué:</strong> mostrar publicidad, que financia la App.</li>
         <li>
           <strong>Condiciones:</strong> solo se muestran anuncios <strong>no personalizados</strong>{" "}
           y solo si no compraste &ldquo;Quitar anuncios&rdquo;. Con la compra, la App no pide
@@ -85,6 +95,7 @@ export default function PrivacidadPage() {
           versión de Android y de la App, mensaje de la excepción) y trazas de rendimiento
           muestreadas.
         </li>
+        <li><strong>Para qué:</strong> detectar y corregir errores y medir el rendimiento.</li>
         <li>
           <strong>Condiciones:</strong> solo en la versión de producción. No se asocia ningún
           usuario a los eventos, no se envían datos personales ni registros de consola, y está
@@ -99,6 +110,7 @@ export default function PrivacidadPage() {
 
       <h3>PostHog — estadísticas de uso (servidores en EE. UU.)</h3>
       <ul>
+        <li><strong>Para qué:</strong> entender cómo se usa la App para mejorarla.</li>
         <li>
           <strong>Identificador:</strong> un código anónimo (UUID) generado en tu dispositivo. No
           identificamos personas, no grabamos sesiones y la geolocalización por IP está
@@ -123,7 +135,7 @@ export default function PrivacidadPage() {
         mejora y la financiación de la App.
       </p>
 
-      <h2>3. Publicidad</h2>
+      <h2>4. Publicidad</h2>
       <p>
         Mientras no compres &ldquo;Quitar anuncios&rdquo;, la App muestra banners, anuncios
         intersticiales al terminar algunos tests y, en el modo práctica, videos recompensados
@@ -136,14 +148,14 @@ export default function PrivacidadPage() {
         .
       </p>
 
-      <h2>4. Compras</h2>
+      <h2>5. Compras</h2>
       <p>
         La compra opcional &ldquo;Quitar anuncios&rdquo; es un pago único que procesa Google Play.
         No vemos ni almacenamos datos de tu tarjeta ni de tu cuenta bancaria. RevenueCat recibe la
         información de la compra para reconocer que la hiciste.
       </p>
 
-      <h2>5. Permisos de la App</h2>
+      <h2>6. Permisos de la App</h2>
       <ul>
         <li><strong>Internet y estado de red:</strong> para anuncios, compras y reportes.</li>
         <li>
@@ -159,41 +171,67 @@ export default function PrivacidadPage() {
         La App no usa almacenamiento, ubicación, cámara, micrófono ni contactos.
       </p>
 
-      <h2>6. Conservación y transferencias internacionales</h2>
+      <h2>7. Notificaciones locales</h2>
       <p>
-        No operamos servidores propios con datos de usuarios. Los datos que reciben AdMob,
-        RevenueCat, Sentry y PostHog los conservan esos proveedores según sus políticas, y pueden
-        procesarse fuera de Argentina, incluidos servidores en Estados Unidos.
+        Si activás los recordatorios desde Ajustes, la App programa notificaciones locales en tu
+        dispositivo: un recordatorio diario a la hora que elijas y un aviso una semana antes de la
+        fecha de tu examen, si la cargaste. Se generan en el dispositivo, sin servidor ni envío de
+        datos, y podés desactivarlas cuando quieras desde la App o desde los ajustes de Android.
       </p>
 
-      <h2>7. Tus derechos</h2>
+      <h2>8. Conservación de los datos y transferencias internacionales</h2>
+      <p>
+        Los datos locales se conservan hasta que desinstales la App. No operamos servidores
+        propios con datos de usuarios: los datos que reciben AdMob, RevenueCat, Sentry y PostHog
+        los conservan esos proveedores según sus políticas, y pueden procesarse fuera de
+        Argentina, incluidos servidores en Estados Unidos.
+      </p>
+
+      <h2>9. Tus derechos y cómo eliminar tus datos</h2>
       <p>
         Como no hay cuentas ni datos que te identifiquen directamente, la mayor parte de la
         información que se genera es anónima. Aun así, podés escribirnos para consultar,
         rectificar o pedir la supresión de cualquier dato personal que creas que tratamos, y lo
         atenderemos conforme a la Ley 25.326 de Protección de los Datos Personales de Argentina.
-        Para borrar los datos locales basta con desinstalar la App.
       </p>
+      <ul>
+        <li>
+          <strong>Datos locales:</strong> se eliminan desinstalando la App.
+        </li>
+        <li>
+          <strong>Datos de analítica:</strong> podés pedir por mail la eliminación de los datos de
+          analítica asociados al identificador anónimo de tu dispositivo, escribiendo a{" "}
+          <a href={`mailto:${APROBA.email}`}>{APROBA.email}</a>.
+        </li>
+      </ul>
       <p>
         La Agencia de Acceso a la Información Pública (AAIP) es el órgano de control de la Ley
         25.326 y atiende denuncias y reclamos de quienes consideren afectados sus derechos de
         protección de datos.
       </p>
 
-      <h2>8. Menores de edad</h2>
+      <h2>10. Seguridad</h2>
+      <p>
+        Las conexiones de la App con los servicios de terceros se realizan de forma cifrada
+        mediante HTTPS. Los datos de progreso quedan en tu dispositivo y no se transmiten.
+        Ningún sistema es completamente seguro, por eso te recomendamos mantener tu dispositivo
+        actualizado y protegido con bloqueo de pantalla.
+      </p>
+
+      <h2>11. Menores de edad</h2>
       <p>
         La App no está dirigida a menores de 13 años y no recopilamos intencionalmente información
         de ellos. Si creés que un menor nos proporcionó datos, escribinos para que los eliminemos.
       </p>
 
-      <h2>9. Cambios en esta política</h2>
+      <h2>12. Cambios en esta política y fecha de actualización</h2>
       <p>
         Si cambiamos esta política, publicaremos la versión nueva en esta misma página y
-        actualizaremos la fecha de &ldquo;Última actualización&rdquo;. Si el cambio es
-        significativo, lo avisaremos también en la App.
+        actualizaremos la fecha de &ldquo;Última actualización&rdquo; que figura al comienzo
+        (hoy: {APROBA.updated}). Si el cambio es significativo, lo avisaremos también en la App.
       </p>
 
-      <h2>10. Contacto</h2>
+      <h2>13. Contacto</h2>
       <p>
         {APROBA.owner} ·{" "}
         <a href={`mailto:${APROBA.email}`}>{APROBA.email}</a>

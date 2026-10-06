@@ -4,16 +4,17 @@ import { APROBA } from "@/app/lib/aproba-legal";
 import { LegalShell } from "../_components/legal-shell";
 
 export const metadata: Metadata = {
-  title: { absolute: "Políticas de uso – Aprobá" },
+  title: { absolute: "Términos de uso – Aprobá" },
   description:
     "Términos de uso de Aprobá, la app para practicar el examen teórico de manejo: modelo gratuito con anuncios, compra opcional y condiciones generales.",
+  openGraph: { title: "Términos de uso – Aprobá", url: APROBA.termsPath, type: "article" },
   alternates: { canonical: APROBA.termsPath },
   robots: { index: true, follow: true },
 };
 
 export default function TerminosPage() {
   return (
-    <LegalShell current="terminos" title="Términos de uso">
+    <LegalShell current="terminos" title="Términos de uso – Aprobá">
       <h2>1. Aceptación</h2>
       <p>
         Al instalar o usar <strong>{APROBA.name}</strong> (la &ldquo;App&rdquo;) aceptás estos
