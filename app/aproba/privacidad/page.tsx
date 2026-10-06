@@ -196,14 +196,23 @@ export default function PrivacidadPage() {
       </p>
       <ul>
         <li>
-          <strong>Datos locales:</strong> se eliminan desinstalando la App.
+          <strong>Datos locales</strong> (progreso, país, fecha de examen, recordatorios): se
+          eliminan al desinstalar la App o al borrar sus datos desde los ajustes de Android.
         </li>
         <li>
-          <strong>Datos de analítica:</strong> podés pedir por mail la eliminación de los datos de
-          analítica asociados al identificador anónimo de tu dispositivo, escribiendo a{" "}
-          <a href={`mailto:${APROBA.email}`}>{APROBA.email}</a>.
+          <strong>Analítica (PostHog):</strong> usa un identificador anónimo generado en tu
+          dispositivo, que no se vincula a tu nombre, tu mail ni ninguna cuenta. Al desinstalar la
+          App, ese identificador se elimina del dispositivo y deja de poder asociarse a él.
+        </li>
+        <li>
+          <strong>Compras:</strong> las gestiona Google Play y podés consultarlas desde tu cuenta
+          de Google.
         </li>
       </ul>
+      <p>
+        Para cualquier consulta, acceso, rectificación, supresión u oposición, podés escribir a{" "}
+        <a href={`mailto:${APROBA.email}`}>{APROBA.email}</a>. Respondemos en un plazo razonable.
+      </p>
       <p>
         La Agencia de Acceso a la Información Pública (AAIP) es el órgano de control de la Ley
         25.326 y atiende denuncias y reclamos de quienes consideren afectados sus derechos de
