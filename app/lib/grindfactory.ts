@@ -21,14 +21,14 @@ export const ownProducts = [
     url: "https://turnia-mocha.vercel.app",
   },
   {
-    slug: "regatea",
-    name: "regateaTuMulta",
-    tagline: "Generá tu descargo de multa con IA.",
+    slug: "petscan",
+    name: "PetScan",
+    tagline: "La salud de tu mascota, en una foto.",
     description:
-      "Cargás la multa, la IA arma el escrito (Ley 24.449), pagás y descargás.",
-    category: "LegalTech · IA",
-    image: "/assets/portfolio-regatea.png",
-    url: "https://regatea-tu-multa.grindfactory.app",
+      "App con IA que detecta signos de alerta en piel, ojos y oídos. Vacunas, peso y libreta sanitaria.",
+    category: "App · IA",
+    image: "/assets/portfolio-petscan.png",
+    url: "https://petscan-app.com",
   },
 ];
 

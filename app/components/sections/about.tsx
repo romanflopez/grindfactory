@@ -50,7 +50,7 @@ export function Differential() {
 
           <ul className="flex flex-col gap-4 mt-2">
             {[
-              "Grovly, Vera y regateaTuMulta: tres productos propios en producción, con usuarios reales.",
+              "Grovly, Vera y PetScan: tres productos propios en producción, con usuarios reales.",
               "El mismo estándar que usamos para nuestro código lo usamos para el tuyo.",
               "No freelancers que desaparecen. No agencias con 8 intermediarios.",
             ].map((point) => (

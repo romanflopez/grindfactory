@@ -16,7 +16,7 @@ export function Footer() {
           <h4>Productos propios</h4>
           <a href="https://grovly.grindfactory.app" target="_blank" rel="noopener noreferrer">Grovly ↗</a>
           <a href="https://turnia-mocha.vercel.app" target="_blank" rel="noopener noreferrer">Vera ↗</a>
-          <a href="https://regatea-tu-multa.grindfactory.app" target="_blank" rel="noopener noreferrer">regateaTuMulta ↗</a>
+          <a href="https://petscan-app.com" target="_blank" rel="noopener noreferrer">PetScan ↗</a>
         </div>
 
         <div className="footer-col">

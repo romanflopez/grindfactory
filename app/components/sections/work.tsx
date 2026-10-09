@@ -22,11 +22,11 @@ const WORK_ITEMS = [
   },
   {
     num: "03",
-    title: "regateaTuMulta",
-    tags: ["LegalTech", "IA"],
-    year: "2025",
-    url: "https://regatea-tu-multa.grindfactory.app",
-    img: "/assets/portfolio-regatea.png",
+    title: "PetScan",
+    tags: ["App", "IA"],
+    year: "2026",
+    url: "https://petscan-app.com",
+    img: "/assets/portfolio-petscan.png",
   },
 ];
 
